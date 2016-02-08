@@ -23,9 +23,12 @@ http://instagram-engineering.tumblr.com/post/10853187575/sharding-ids-at-instagr
 10 bits that represent an auto-incrementing sequence, modulus 1024. This means we can generate 1024 IDs, per shard, per millisecond
 "
 
-The 13 bit logical shard ID is used as DB ID.
+The 13 bit logical shard ID is used as DB ID. 
 
-Instructions for Initial Set up
+Shard ID encoded in entity ID and @Sharding (@Transactional but also looks up correct DB, transcationManager) Annotation project is here:
+https://github.com/inncretech/modules
+
+#Instructions for Initial Set up
 
 first create database name config ( or change in dev-db.properties file property : master.config.jdbcUrl)
 run db.sql
