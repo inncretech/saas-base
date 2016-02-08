@@ -1,0 +1,82 @@
+package com.inncretech.multitenancy.master.db.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
+@Entity
+@DynamicInsert
+@DynamicUpdate
+@Table
+public class Tenant extends AuditDate {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long tenantId;
+
+	@Column(name = "master_tenant_id")
+	private Long masterTenantId;
+
+	@Column(name = "domain", unique = true)
+	private String domain;
+
+	private String name;
+
+	@ManyToOne(targetEntity = DataSourceConfig.class)
+	@JoinColumn(name = "data_source_config_id")
+	private DataSourceConfig tenantDataSourceConfig;
+
+	public Long getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(Long tenantId) {
+		this.tenantId = tenantId;
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
+
+	public DataSourceConfig getTenantDataSourceConfig() {
+		return tenantDataSourceConfig;
+	}
+
+	public void setTenantDataSourceConfig(DataSourceConfig tenantDataSourceConfig) {
+		this.tenantDataSourceConfig = tenantDataSourceConfig;
+	}
+
+	public Long getMasterTenantId() {
+		return masterTenantId;
+	}
+
+	public void setMasterTenantId(Long masterTenantId) {
+		this.masterTenantId = masterTenantId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+}

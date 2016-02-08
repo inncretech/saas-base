@@ -1,0 +1,1 @@
+insert into datasourceconfig(create_date,modi_date,db_name,password,dbType,db_url,user_name) values(now(),now(),'db_name blank db should be there','db user name','SHARED or DEDICATED','db host for eg localhost:3306','password');
