@@ -4,8 +4,7 @@
 	<groupId>com.inncretech</groupId>
 	<artifactId>Saas-base-routing-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
-
+	<packaging>jar</packaging>
 
 	<properties>
 		<hibernate.version>5.0.6.Final</hibernate.version>
@@ -145,22 +144,16 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
 	<build>
-		<finalName>ROOT</finalName>
 		<plugins>
 			<plugin>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.3.5.v20151012</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5</version>
 				<configuration>
-					<webApp>
-						<contextPath>/</contextPath>
-					</webApp>
-					<connectors>
-						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-							<port>${jetty.port}</port>
-						</connector>
-					</connectors>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 		</plugins>

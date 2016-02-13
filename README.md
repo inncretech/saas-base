@@ -34,8 +34,6 @@ https://github.com/inncretech/modules
 #Instructions for Initial Set up
 
 create database name config ( or change in dev-db.properties file property : master.config.jdbcUrl)
-run db.sql
+run create_db.sql
 add one entry in datasourceconfig table (this entry is required for routing datasource bean creation)
-Look at test.sql
-
-run server using command : mvn clean package -DskipTests jetty:run -Djetty.port=8080 -Dspring.profiles.active=dev -U
+Look at insert_db.sql
