@@ -2,7 +2,7 @@ package com.inncretech.multitenancy.datasource.master.dto;
 
 import java.io.Serializable;
 
-public class UserDTO implements Serializable {
+public class ConnectionDBDto implements Serializable {
 
 	/**
 	 * 
