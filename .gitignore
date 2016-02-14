@@ -2,3 +2,5 @@
 .settings
 .project
 .classpath
+
+catalina.base_IS_UNDEFINED
