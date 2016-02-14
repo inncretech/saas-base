@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.inncretech.multitenancy.datasource.config.DbContextHolder;
+import com.inncretech.multitenancy.datasource.context.DbContextHolder;
 import com.inncretech.multitenancy.datasource.tenant.dao.UserRepository;
 import com.inncretech.multitenancy.datasource.tenant.dto.UserDTO;
 import com.inncretech.multitenancy.datasource.tenant.entity.UserData;
@@ -27,7 +27,7 @@ public class UserDataServiceImpl implements UserDataService {
     @Transactional
     public UserDTO addUser(UserDTO userDTO) {
         UserData user = new UserData();
-        user.setId(idGenerator.create(DbContextHolder.getDbType().intValue()));
+        user.setId(idGenerator.create(DbContextHolder.getShardId().intValue()));
         user.setName(userDTO.getUserName());
         userRepository.save(user);
         userDTO.setUserId(user.getId());

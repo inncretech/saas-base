@@ -49,7 +49,7 @@ public class RoutingDataSourceConfig {
                     acquireIncrement,
                     "jdbc:mysql://" + config.getDbUrl() + "/" + config.getDbName() + "?zeroDateTimeBehavior=convertToNull&useSSL=false",
                     config.getDbUserName(), config.getDbPassword());
-            targetDataSources.put(config.getId(), comboPooledDataSource);
+            targetDataSources.put((Integer) config.getId().intValue(), comboPooledDataSource);
             routingDataSource.setDefaultTargetDataSource(comboPooledDataSource);
         }
         routingDataSource.setTargetDataSources(targetDataSources);

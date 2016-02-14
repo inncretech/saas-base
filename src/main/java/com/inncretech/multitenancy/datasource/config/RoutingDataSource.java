@@ -15,6 +15,8 @@ import org.springframework.jdbc.datasource.lookup.DataSourceLookup;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.util.Assert;
 
+import com.inncretech.multitenancy.datasource.context.DbContextHolder;
+
 public class RoutingDataSource extends AbstractDataSource implements InitializingBean {
 	private static final Logger log = LoggerFactory.getLogger(RoutingDataSource.class);
 
@@ -185,7 +187,7 @@ public class RoutingDataSource extends AbstractDataSource implements Initializin
 	// @Override
 	protected Object determineCurrentLookupKey() {
 		log.info(">>> determineCurrentLookupKey thread: {}", Thread.currentThread().getName());
-		log.info(">>> RoutingDataSource: {}", DbContextHolder.getDbType());
-		return DbContextHolder.getDbType();
+		log.info(">>> RoutingDataSource: {}", DbContextHolder.getShardId());
+		return DbContextHolder.getShardId();
 	}
 }
