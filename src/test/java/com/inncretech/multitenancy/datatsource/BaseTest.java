@@ -7,15 +7,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.inncretech.multitenancy.datasource.config.DbContextHolder;
+import com.inncretech.multitenancy.datasource.config.MultiTenancyConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/context.xml" })
-@ActiveProfiles(profiles = "dev")
+@ContextConfiguration(classes = { MultiTenancyConfiguration.class })
+@ActiveProfiles("dev")
 public class BaseTest {
-
-	@BeforeClass
-	public static void a() {
-		DbContextHolder.setDbType(1l);
-	}
 
 }

@@ -38,4 +38,10 @@ public class UserData extends AuditDate {
 		this.name = name;
 	}
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("UserData [id=").append(id).append(", name=").append(name).append("]");
+        return builder.toString();
+    }
 }

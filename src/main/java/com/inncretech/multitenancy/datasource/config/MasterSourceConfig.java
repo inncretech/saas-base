@@ -54,8 +54,8 @@ public class MasterSourceConfig {
         LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         localContainerEntityManagerFactoryBean.setDataSource(masterDataSource);
         HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-        jpaVendorAdapter.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
         jpaVendorAdapter.setGenerateDdl(true);
+        jpaVendorAdapter.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
         jpaVendorAdapter.setShowSql(true);
         localContainerEntityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
         localContainerEntityManagerFactoryBean.setPersistenceUnitName("masterPersistentUnit");
