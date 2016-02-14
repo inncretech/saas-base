@@ -14,7 +14,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
 @EnableJpaRepositories(basePackages = {
-        "com.inncretech.multitenancy.datasource.master.dao" }, entityManagerFactoryRef = "masterEntityManagerFactory", transactionManagerRef = "masterTransactinManager")
+        "com.inncretech.multitenancy.datasource.master.dao", }, entityManagerFactoryRef = "masterEntityManagerFactory", transactionManagerRef = "masterTransactinManager")
 public class MasterSourceConfig {
 
     private String driverClass = "com.mysql.jdbc.Driver";

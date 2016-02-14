@@ -19,8 +19,8 @@ import com.inncretech.multitenancy.datasource.utils.DataSourceUtils;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
-@EnableJpaRepositories(basePackages = {
-        "com.inncretech.multitenancy.datasource.tenant.dao" }, entityManagerFactoryRef = "secondEntityManagerFactory", transactionManagerRef = "secondTransactinManager")
+@EnableJpaRepositories(basePackages = { "com.inncretech.multitenancy.datasource.tenant.dao",
+        "com.vxlpartners.appanalytix.datasource.tenant.dao" }, entityManagerFactoryRef = "secondEntityManagerFactory", transactionManagerRef = "secondTransactinManager")
 public class RoutingDataSourceConfig {
 
     private String driverClass = "com.mysql.jdbc.Driver";

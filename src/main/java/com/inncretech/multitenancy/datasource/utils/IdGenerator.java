@@ -1,8 +1,5 @@
 package com.inncretech.multitenancy.datasource.utils;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,9 +20,9 @@ public class IdGenerator {
 	@Autowired
 	private IdEntryRepository idEntryRepository;
 
-	public Long create(int tenantId) {
+	public Long create(int shardId) {
 		Long id = System.currentTimeMillis() << (64 - TIME_BITS);
-		id |= tenantId << (TOTAL_BITS - TIME_BITS - SHARD_BITS);
+		id |= shardId << (TOTAL_BITS - TIME_BITS - SHARD_BITS);
 		id |= (nextSequence() % (int) Math.pow(2.0, (double) (TOTAL_BITS - SHARD_BITS - TIME_BITS)));
 		id &= 0X3FFFFFFFFFFFFFFFL;
 		return id;
@@ -45,15 +42,4 @@ public class IdGenerator {
 		newId = newId & 0X3FFL;
 		return newId.intValue();
 	}
-
-	public static String MD5(String password) throws NoSuchAlgorithmException {
-		byte[] bytes = MessageDigest.getInstance("MD5").digest(password.getBytes());
-
-		StringBuilder sb = new StringBuilder();
-		for (byte b : bytes) {
-			sb.append(String.format("%02x", b & 0xff));
-		}
-		return sb.toString();
-	}
-
 }

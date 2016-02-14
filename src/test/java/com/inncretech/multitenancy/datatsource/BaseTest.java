@@ -1,12 +1,10 @@
 package com.inncretech.multitenancy.datatsource;
 
-import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.inncretech.multitenancy.datasource.config.DbContextHolder;
 import com.inncretech.multitenancy.datasource.config.MultiTenancyConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
