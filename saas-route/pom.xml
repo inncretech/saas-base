@@ -14,41 +14,20 @@
 		<junit.version>4.12</junit.version>
 		<spring.version>4.2.1.RELEASE</spring.version>
 		<junit.version>4.12</junit.version>
-		<jdk.version>1.6</jdk.version>
-		<jedis.version>2.6.2</jedis.version>
-		<servlet-api.version>3.0.1</servlet-api.version>
 		<slf4j.version>1.7.11</slf4j.version>
 		<logback.version>1.1.3</logback.version>
-		<jackson.version>1.9.13</jackson.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<mysql-connector.version>5.1.36</mysql-connector.version>
 		<hibernate.version>4.3.10.Final</hibernate.version>
 		<hibernate.validator.version>5.2.1.Final</hibernate.validator.version>
 		<hibernate.jpa.version>1.0.1.Final</hibernate.jpa.version>
 		<spring.data.version>1.9.0.RELEASE</spring.data.version>
-		<spring.elastic.version>1.3.0.RELEASE</spring.elastic.version>
-		<spring.security.version>3.2.5.RELEASE</spring.security.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.inncretech</groupId>
 			<artifactId>saas-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.yaml</groupId>
-			<artifactId>snakeyaml</artifactId>
-			<version>1.16</version>
-		</dependency>
-		<dependency>
-			<groupId>org.liquibase</groupId>
-			<artifactId>liquibase-core</artifactId>
-			<version>3.4.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.liquibase</groupId>
-			<artifactId>liquibase-maven-plugin</artifactId>
-			<version>3.4.2</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -69,37 +48,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
 			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.5.3</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>2.5.3</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -137,12 +85,6 @@
 			<version>1.1.0.Final</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>javax.el</groupId>
 			<artifactId>javax.el-api</artifactId>
 			<version>2.2.4</version>
@@ -174,14 +116,6 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.liquibase</groupId>
-				<artifactId>liquibase-maven-plugin</artifactId>
-				<version>3.4.2</version>
-				<configuration>
-					<propertyFile>src/main/resources/liquibase.properties</propertyFile>
 				</configuration>
 			</plugin>
 		</plugins>

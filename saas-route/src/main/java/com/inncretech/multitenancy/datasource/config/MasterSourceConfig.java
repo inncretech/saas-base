@@ -14,7 +14,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
 @EnableJpaRepositories(basePackages = {
-        "com.inncretech.multitenancy.datasource.master.dao", }, entityManagerFactoryRef = "masterEntityManagerFactory", transactionManagerRef = "masterTransactinManager")
+        "com.inncretech.multitenancy.datasource.master.dao", }, entityManagerFactoryRef = "masterEntityManagerFactory", transactionManagerRef = "masterTransactionManager")
 public class MasterSourceConfig {
 
     private String driverClass = "com.mysql.jdbc.Driver";
@@ -63,7 +63,7 @@ public class MasterSourceConfig {
         return localContainerEntityManagerFactoryBean;
     }
 
-    @Bean(name = "masterTransactinManager")
+    @Bean(name = "masterTransactionManager")
     public JpaTransactionManager transactionManager(
             @Qualifier("masterEntityManagerFactory") LocalContainerEntityManagerFactoryBean masterEntityManagerFactory) throws Exception {
         JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
