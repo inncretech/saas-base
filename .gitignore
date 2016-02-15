@@ -1,6 +1,21 @@
-/target/
-.settings
+*.class
+*/classes/
+*.log
+target
 .project
+.settings
 .classpath
+.idea
+*.iml
+npm-debug.log
+.DS_Store
+*/test-output/*
+test-output/*
+test-output
 
-catalina.base_IS_UNDEFINED
+.mvn/
+target
+target/
+target/*
+nohup.out
+*/catalina.base_IS_UNDEFINED
