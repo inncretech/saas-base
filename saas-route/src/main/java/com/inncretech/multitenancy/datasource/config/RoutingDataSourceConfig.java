@@ -4,10 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManagerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -19,6 +23,7 @@ import com.inncretech.multitenancy.datasource.utils.DataSourceUtils;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
+@Import({ MasterSourceConfig.class })
 @EnableJpaRepositories(basePackages = { "com.inncretech.multitenancy.datasource.tenant.dao",
         "com.vxlpartners.appanalytix.datasource.tenant.dao" }, entityManagerFactoryRef = "secondEntityManagerFactory", transactionManagerRef = "secondTransactinManager")
 public class RoutingDataSourceConfig {
@@ -34,8 +39,13 @@ public class RoutingDataSourceConfig {
     private int acquireIncrement = 1;
 
     @Autowired
+    @Lazy
     private DataSourceConfigRepository dataSourceConfigRepository;
 
+    @Autowired
+    @Qualifier("masterEntityManagerFactory")
+    private EntityManagerFactory masterEntityManagerFactory;
+    
     @Bean(name = "routingDataSource")
     public RoutingDataSource getRoutingDataSource() throws Exception {
 

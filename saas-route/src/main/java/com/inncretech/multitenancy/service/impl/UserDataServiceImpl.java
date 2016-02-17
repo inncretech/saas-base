@@ -6,7 +6,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.inncretech.multitenancy.datasource.context.DbContextHolder;
 import com.inncretech.multitenancy.datasource.tenant.dao.UserRepository;
@@ -15,7 +15,7 @@ import com.inncretech.multitenancy.datasource.tenant.entity.UserData;
 import com.inncretech.multitenancy.datasource.utils.IdGenerator;
 import com.inncretech.multitenancy.service.UserDataService;
 
-@Component
+@Service
 public class UserDataServiceImpl implements UserDataService {
 
     @Autowired

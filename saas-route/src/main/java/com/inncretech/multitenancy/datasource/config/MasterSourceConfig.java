@@ -14,7 +14,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
 @EnableJpaRepositories(basePackages = {
-        "com.inncretech.multitenancy.datasource.master.dao", }, entityManagerFactoryRef = "masterEntityManagerFactory", transactionManagerRef = "masterTransactionManager")
+        "com.inncretech.multitenancy.datasource.master.dao" }, entityManagerFactoryRef = "masterEntityManagerFactory", transactionManagerRef = "masterTransactionManager")
 public class MasterSourceConfig {
 
     private String driverClass = "com.mysql.jdbc.Driver";
@@ -45,7 +45,6 @@ public class MasterSourceConfig {
         ComboPooledDataSource comboPooledDataSource = DataSourceUtils.createDataSource(driverClass, initialPoolSize, minPoolSize, maxPoolSize,
                 acquireIncrement, jdbcUrl, user, password);
         return comboPooledDataSource;
-
     }
 
     @Bean(name = "masterEntityManagerFactory")

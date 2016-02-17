@@ -11,8 +11,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
-@Import({ MasterSourceConfig.class, RoutingDataSourceConfig.class })
-@ComponentScan(basePackages = { "com.inncretech.multitenancy" })
+@Import({ RoutingDataSourceConfig.class })
+@ComponentScan(basePackages = { "com.inncretech.multitenancy.datasource.utils", "com.inncretech.multitenancy.service" })
 public class MultiTenancyConfiguration {
 
     private static final Resource[] DEV_PROPERTIES = new ClassPathResource[] { new ClassPathResource("properties/dev-db.properties"), };
@@ -21,9 +21,9 @@ public class MultiTenancyConfiguration {
 
     @Bean
     public javax.validation.Validator localValidatorFactoryBean() {
-       return new LocalValidatorFactoryBean();
+        return new LocalValidatorFactoryBean();
     }
-    
+
     @Profile({ "dev" })
     public static class DevConfig {
         @Bean
