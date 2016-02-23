@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inncretech.identity.service.UserService;
-import com.inncretech.identity.utils.UserServiceMapper;
 import com.inncretech.multitenancy.datasource.tenant.dao.UserAccessTokenRepository;
 import com.inncretech.multitenancy.datasource.tenant.dao.UserRepository;
 import com.inncretech.multitenancy.datasource.tenant.dto.UserDTO;
@@ -41,10 +40,10 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public UserDTO signin(String email, String password) {
+    public UserDTO signin(String email, char[] password) {
         UserDTO userDTO = new UserDTO();
         userDTO.setEmail(email);
-        userDTO.setPassword(password);
+        userDTO.setPassword(password.toString());
         mapper.mapUserDTOFromUser(authenticateUserByEmail(email, password), userDTO);
         return userDTO;
     }
@@ -61,7 +60,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String generateAccessToken(String email, String password) {
+    public String generateAccessToken(String email, char[] password) {
         User user = userRepository.findByEmail(email);
         if (user != null) {
             UserAccessToken userAccessToken = passwordService.generateAccessToken(user, password);
@@ -96,7 +95,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User authenticateUserByEmail(String email, String password) {
+    public User authenticateUserByEmail(String email, char[] password) {
 
         User user = userRepository.findByEmail(email);
         if (passwordService.checkPassword(password, user)) {
@@ -120,7 +119,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    public UserDTO addUser(UserDTO userDTO) throws Exception {
+    private UserDTO addUser(UserDTO userDTO) throws Exception {
         User user = new User();
         mapper.mapUserFromUserDTO(userDTO, user);
         try {
@@ -132,7 +131,7 @@ public class UserServiceImpl implements UserService {
             exception.printStackTrace();
             throw new Exception("Internal Service");
         }
-        String accessToken = generateAccessToken(userDTO.getEmail(), userDTO.getPassword());
+        String accessToken = generateAccessToken(userDTO.getEmail(), userDTO.getPassword().toCharArray());
         UserDTO resultantUserDTO = new UserDTO();
         mapper.mapUserDTOFromUser(user, resultantUserDTO);
         resultantUserDTO.setAuthToken(accessToken);

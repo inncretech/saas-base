@@ -64,7 +64,7 @@ public class TenantServiceImpl implements TenantService {
         tenant.setName(tenantDTO.getTenantName());
         tenant.setMasterTenantId(idGenerator.create());
         tenantRepository.save(tenant);
-        tenantDTO.setTenantId(tenant.getTenantId());
+        tenantDTO.setTenantId(tenant.getId());
         return tenantDTO;
     }
 
@@ -77,7 +77,7 @@ public class TenantServiceImpl implements TenantService {
             throw new MultiTenancyException("Tenant id not found");
         }
         TenantDTO tenantDTO = new TenantDTO();
-        tenantDTO.setTenantId(tenant.getTenantId());
+        tenantDTO.setTenantId(tenant.getId());
         tenantDTO.setDomain(tenantDTO.getDomain());
         tenantDTO.setDataSourceConfigId(tenant.getTenantDataSourceConfig().getId());
         tenantDTO.setTenantName(tenant.getName());

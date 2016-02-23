@@ -44,11 +44,10 @@ public class PasswordServiceImpl implements PasswordService {
         }
     }
 
-    private String generateStrongPasswordHash(String password, byte[] salt) {
+    private String generateStrongPasswordHash(char[] password, byte[] salt) {
         try {
             int iterations = 1000;
-            char[] chars = password.toCharArray();
-            PBEKeySpec spec = new PBEKeySpec(chars, salt, iterations, 64 * 8);
+            PBEKeySpec spec = new PBEKeySpec(password, salt, iterations, 64 * 8);
             SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
             byte[] hash = skf.generateSecret(spec).getEncoded();
             return Base64.toBase64String(hash);
@@ -58,14 +57,14 @@ public class PasswordServiceImpl implements PasswordService {
     }
 
     @Override
-    public boolean checkPassword(String inputPassword, User userDbEntity) {
+    public boolean checkPassword(char[] inputPassword, User userDbEntity) {
         byte[] userSalt = Base64.decode(userDbEntity.getPasswordSalt());
         String hashedPassword = generateStrongPasswordHash(inputPassword, userSalt);
         return hashedPassword.equals(userDbEntity.getPassword());
     }
 
     @Override
-    public UserAccessToken generateAccessToken(User user, String userInputPassword) {
+    public UserAccessToken generateAccessToken(User user, char[] userInputPassword) {
         try {
             UserAccessToken userAccessToken = new UserAccessToken();
             String hashedPasswordWithMasterSalt = generateStrongPasswordHash(userInputPassword, Base64.decode(masterKeySalt));
@@ -119,12 +118,12 @@ public class PasswordServiceImpl implements PasswordService {
     public void initializeCryptoForNewUser(User user) {
         byte[] userSalt = getSalt();
         String userPassword = user.getPassword();
-        user.setPassword(generateStrongPasswordHash(userPassword, userSalt));
+        user.setPassword(generateStrongPasswordHash(userPassword.toCharArray(), userSalt));
         user.setPasswordSalt(Base64.toBase64String(userSalt));
-        user.setMasterKey(generateMasterKey(userPassword));
+        user.setMasterKey(generateMasterKey(userPassword.toCharArray()));
     }
 
-    private String generateMasterKey(String pasword) {
+    private String generateMasterKey(char[] pasword) {
         try {
             String hashedPasswordWithMasterSalt = generateStrongPasswordHash(pasword, Base64.decode(masterKeySalt));
             KeyGenerator generator = KeyGenerator.getInstance("AES", "BC");
@@ -140,7 +139,7 @@ public class PasswordServiceImpl implements PasswordService {
         return null;
     }
 
-    public boolean isPasswordValid(String encPass, String rawPass, Object salt) {
+    public boolean isPasswordValid(String encPass, char[] rawPass, Object salt) {
         if (salt == null) {
             return false;
         }

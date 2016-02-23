@@ -16,61 +16,62 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "tenant")
-public class Tenant extends AuditDate {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "tenant_id")
-	private Long tenantId;
+public class Tenant extends AbstractPersistentObject {
+   
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
 
-	@Column(name = "master_tenant_id")
-	private Long masterTenantId;
+    @Column(name = "master_tenant_id")
+    private Long masterTenantId;
 
-	@Column(name = "domain", unique = true)
-	private String domain;
+    @Column(name = "domain", unique = true)
+    private String domain;
 
-	private String name;
+    private String name;
 
-	@ManyToOne(targetEntity = DataSourceConfig.class)
-	@JoinColumn(name = "data_source_config_id")
-	private DataSourceConfig tenantDataSourceConfig;
+    @ManyToOne(targetEntity = DataSourceConfig.class)
+    @JoinColumn(name = "data_source_config_id")
+    private DataSourceConfig tenantDataSourceConfig;
 
-	public Long getTenantId() {
-		return tenantId;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setTenantId(Long tenantId) {
-		this.tenantId = tenantId;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getDomain() {
-		return domain;
-	}
+    public String getDomain() {
+        return domain;
+    }
 
-	public void setDomain(String domain) {
-		this.domain = domain;
-	}
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
 
-	public DataSourceConfig getTenantDataSourceConfig() {
-		return tenantDataSourceConfig;
-	}
+    public DataSourceConfig getTenantDataSourceConfig() {
+        return tenantDataSourceConfig;
+    }
 
-	public void setTenantDataSourceConfig(DataSourceConfig tenantDataSourceConfig) {
-		this.tenantDataSourceConfig = tenantDataSourceConfig;
-	}
+    public void setTenantDataSourceConfig(DataSourceConfig tenantDataSourceConfig) {
+        this.tenantDataSourceConfig = tenantDataSourceConfig;
+    }
 
-	public Long getMasterTenantId() {
-		return masterTenantId;
-	}
+    public Long getMasterTenantId() {
+        return masterTenantId;
+    }
 
-	public void setMasterTenantId(Long masterTenantId) {
-		this.masterTenantId = masterTenantId;
-	}
+    public void setMasterTenantId(Long masterTenantId) {
+        this.masterTenantId = masterTenantId;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 }

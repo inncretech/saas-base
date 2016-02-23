@@ -15,7 +15,7 @@ import com.inncretech.multitenancy.datatsource.BaseTest;
 public class TestUserRepository extends BaseTest {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserDataRepository userRepository;
 
     @Autowired
     private IdGenerator idGenerator;

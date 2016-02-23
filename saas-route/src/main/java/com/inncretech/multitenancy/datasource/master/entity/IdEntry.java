@@ -18,11 +18,6 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate
 public class IdEntry implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
@@ -36,5 +31,4 @@ public class IdEntry implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 }

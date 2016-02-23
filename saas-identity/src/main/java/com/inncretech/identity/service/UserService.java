@@ -9,13 +9,13 @@ public interface UserService {
 
     UserDTO getUserByEmail(String email);
 
-    User authenticateUserByEmail(String userName, String password);
+    User authenticateUserByEmail(String userName, char[] password);
 
-    String generateAccessToken(String userName, String password);
+    String generateAccessToken(String userName, char[] password);
 
     UserDTO authenticateAccessToken(String email, String accessToken);
 
-    UserDTO signin(String email, String password);
+    UserDTO signin(String email, char[] password);
 
     UserDTO getUserById(Long userId);
 

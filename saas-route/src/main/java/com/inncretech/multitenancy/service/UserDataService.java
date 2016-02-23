@@ -2,11 +2,11 @@ package com.inncretech.multitenancy.service;
 
 import java.util.List;
 
-import com.inncretech.multitenancy.datasource.tenant.dto.UserDTO;
+import com.inncretech.multitenancy.datasource.tenant.dto.UserDataDto;
 
 public interface UserDataService {
 
-	UserDTO addUser(UserDTO userDTO);
+	UserDataDto addUser(UserDataDto userDTO);
 
-	List<UserDTO> getUsers();
+	List<UserDataDto> getUsers();
 }

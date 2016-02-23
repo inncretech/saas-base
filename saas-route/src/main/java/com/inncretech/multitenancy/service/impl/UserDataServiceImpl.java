@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inncretech.multitenancy.datasource.context.DbContextHolder;
-import com.inncretech.multitenancy.datasource.tenant.dao.UserRepository;
-import com.inncretech.multitenancy.datasource.tenant.dto.UserDTO;
+import com.inncretech.multitenancy.datasource.tenant.dao.UserDataRepository;
+import com.inncretech.multitenancy.datasource.tenant.dto.UserDataDto;
 import com.inncretech.multitenancy.datasource.tenant.entity.UserData;
 import com.inncretech.multitenancy.datasource.utils.IdGenerator;
 import com.inncretech.multitenancy.service.UserDataService;
@@ -19,13 +19,13 @@ import com.inncretech.multitenancy.service.UserDataService;
 public class UserDataServiceImpl implements UserDataService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserDataRepository userRepository;
 
     @Autowired
     private IdGenerator idGenerator;
 
     @Transactional
-    public UserDTO addUser(UserDTO userDTO) {
+    public UserDataDto addUser(UserDataDto userDTO) {
         UserData user = new UserData();
         user.setId(idGenerator.create(DbContextHolder.getShardId().intValue()));
         user.setName(userDTO.getUserName());
@@ -36,11 +36,11 @@ public class UserDataServiceImpl implements UserDataService {
     }
 
     @Transactional
-    public List<UserDTO> getUsers() {
-        List<UserDTO> userDTOs = new ArrayList<UserDTO>();
+    public List<UserDataDto> getUsers() {
+        List<UserDataDto> userDTOs = new ArrayList<UserDataDto>();
 
         for (UserData userData : userRepository.findAll()) {
-            UserDTO userDTO = new UserDTO();
+            UserDataDto userDTO = new UserDataDto();
             userDTO.setUserId(userData.getId());
             userDTO.setUserName(userData.getName());
             userDTOs.add(userDTO);

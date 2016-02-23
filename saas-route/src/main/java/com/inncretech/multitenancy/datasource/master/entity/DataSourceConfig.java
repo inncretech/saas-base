@@ -18,13 +18,13 @@ import com.inncretech.multitenancy.datasource.enums.DbLeaseType;
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "data_source_config")
-public class DataSourceConfig extends AuditDate {
+public class DataSourceConfig extends AbstractPersistentObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
+    @Column(name = "db_lease_type")
     @Enumerated(EnumType.STRING)
     private DbLeaseType dbLeaseType;
 
@@ -39,7 +39,7 @@ public class DataSourceConfig extends AuditDate {
 
     @Column(name = "db_name")
     private String dbName;
-
+    
     public Long getId() {
         return id;
     }
@@ -87,5 +87,4 @@ public class DataSourceConfig extends AuditDate {
     public void setDbName(String dbName) {
         this.dbName = dbName;
     }
-
 }
