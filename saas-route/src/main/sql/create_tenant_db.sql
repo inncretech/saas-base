@@ -26,7 +26,7 @@ CREATE TABLE `connection_db` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `connection_definition` (
+CREATE TABLE `command_definition` (
   `id` bigint(20) NOT NULL,
   `created_date` datetime DEFAULT NULL,
   `updated_date` datetime DEFAULT NULL,
@@ -35,6 +35,8 @@ CREATE TABLE `connection_definition` (
   `name` varchar(255) DEFAULT NULL,
   `tenant_id` bigint(20) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
+  `etl_definition` text DEFAULT NULL,
+  `service_area` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
