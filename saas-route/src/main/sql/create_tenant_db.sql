@@ -1,7 +1,3 @@
-create database db1;
-
-use db1;
-
 CREATE TABLE `agent` (
   `id` bigint(20) NOT NULL,
   `created_date` datetime DEFAULT NULL,
