@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.inncretech.identity.service.UserService;
 import com.inncretech.multitenancy.datasource.tenant.dao.UserAccessTokenRepository;
-import com.inncretech.multitenancy.datasource.tenant.dao.UserRepository;
+import com.inncretech.multitenancy.datasource.tenant.dao.UserDataRepository;
 import com.inncretech.multitenancy.datasource.tenant.dto.UserDTO;
-import com.inncretech.multitenancy.datasource.tenant.entity.User;
+import com.inncretech.multitenancy.datasource.tenant.entity.UserData;
 import com.inncretech.multitenancy.datasource.tenant.entity.UserAccessToken;
 import com.inncretech.multitenancy.datasource.utils.IdGenerator;
 
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     private UserAccessTokenRepository userAccessTokenRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserDataRepository userRepository;
 
     @Override
     public UserDTO signin(String email, char[] password) {
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String generateAccessToken(String email, char[] password) {
-        User user = userRepository.findByEmail(email);
+        UserData user = userRepository.findByEmail(email);
         if (user != null) {
             UserAccessToken userAccessToken = passwordService.generateAccessToken(user, password);
             userAccessTokenRepository.save(userAccessToken);
@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO getUserById(Long userId) {
         UserDTO userDTO = new UserDTO();
-        User user = userRepository.getUserById(userId);
+        UserData user = userRepository.getUserById(userId);
         if (user == null) {
             System.out.println();
             return null;
@@ -95,9 +95,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User authenticateUserByEmail(String email, char[] password) {
+    public UserData authenticateUserByEmail(String email, char[] password) {
 
-        User user = userRepository.findByEmail(email);
+        UserData user = userRepository.findByEmail(email);
         if (passwordService.checkPassword(password, user)) {
             passwordService.generateAccessToken(user, password);
             return user;
@@ -120,7 +120,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserDTO addUser(UserDTO userDTO) throws Exception {
-        User user = new User();
+        UserData user = new UserData();
         mapper.mapUserFromUserDTO(userDTO, user);
         try {
             user.setId(idGenerator.create());
@@ -143,7 +143,7 @@ public class UserServiceImpl implements UserService {
         UserDTO userDTO = new UserDTO();
         System.out.println("UserServiceImpl " + email);
         ;
-        User user = userRepository.findByEmail(email);
+        UserData user = userRepository.findByEmail(email);
         if (user == null) {
             System.out.println();
             return null;

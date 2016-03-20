@@ -19,7 +19,7 @@ import com.inncretech.multitenancy.service.UserDataService;
 public class UserDataServiceImpl implements UserDataService {
 
     @Autowired
-    private UserDataRepository userRepository;
+    private UserDataRepository userDataRepository;
 
     @Autowired
     private IdGenerator idGenerator;
@@ -28,8 +28,8 @@ public class UserDataServiceImpl implements UserDataService {
     public UserDataDto addUser(UserDataDto userDTO) {
         UserData user = new UserData();
         user.setId(idGenerator.create(DbContextHolder.getShardId().intValue()));
-        user.setName(userDTO.getUserName());
-        userRepository.save(user);
+        user.setUserName(userDTO.getUserName());
+        userDataRepository.save(user);
         userDTO.setUserId(user.getId());
 
         return userDTO;
@@ -39,10 +39,10 @@ public class UserDataServiceImpl implements UserDataService {
     public List<UserDataDto> getUsers() {
         List<UserDataDto> userDTOs = new ArrayList<UserDataDto>();
 
-        for (UserData userData : userRepository.findAll()) {
+        for (UserData userData : userDataRepository.findAll()) {
             UserDataDto userDTO = new UserDataDto();
             userDTO.setUserId(userData.getId());
-            userDTO.setUserName(userData.getName());
+            userDTO.setUserName(userData.getUserName());
             userDTOs.add(userDTO);
         }
         return userDTOs;

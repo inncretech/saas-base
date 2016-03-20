@@ -5,13 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inncretech.multitenancy.datatsource.BaseTest;
 
-public class TestDataSourceConfigRepository extends BaseTest {
+public class TestSubjectAreaRespository extends BaseTest {
 
     @Autowired
-    private DataSourceConfigRepository dataSourceConfigRepository;
+    private SubjectAreaRepository subjectAreaRepository;
 
     @Test
     public void findAll() {
-        dataSourceConfigRepository.findAll();
+        subjectAreaRepository.findAll();
     }
+
 }

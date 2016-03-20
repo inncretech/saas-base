@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.inncretech.identity.service.PasswordService;
-import com.inncretech.multitenancy.datasource.tenant.entity.User;
+import com.inncretech.multitenancy.datasource.tenant.entity.UserData;
 import com.inncretech.multitenancy.datasource.tenant.entity.UserAccessToken;
 
 @Component
@@ -57,14 +57,14 @@ public class PasswordServiceImpl implements PasswordService {
     }
 
     @Override
-    public boolean checkPassword(char[] inputPassword, User userDbEntity) {
+    public boolean checkPassword(char[] inputPassword, UserData userDbEntity) {
         byte[] userSalt = Base64.decode(userDbEntity.getPasswordSalt());
         String hashedPassword = generateStrongPasswordHash(inputPassword, userSalt);
         return hashedPassword.equals(userDbEntity.getPassword());
     }
 
     @Override
-    public UserAccessToken generateAccessToken(User user, char[] userInputPassword) {
+    public UserAccessToken generateAccessToken(UserData user, char[] userInputPassword) {
         try {
             UserAccessToken userAccessToken = new UserAccessToken();
             String hashedPasswordWithMasterSalt = generateStrongPasswordHash(userInputPassword, Base64.decode(masterKeySalt));
@@ -115,7 +115,7 @@ public class PasswordServiceImpl implements PasswordService {
         return encryptDecryptService.encrypt(UUID.randomUUID().toString());
     }
 
-    public void initializeCryptoForNewUser(User user) {
+    public void initializeCryptoForNewUser(UserData user) {
         byte[] userSalt = getSalt();
         String userPassword = user.getPassword();
         user.setPassword(generateStrongPasswordHash(userPassword.toCharArray(), userSalt));

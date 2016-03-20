@@ -12,8 +12,26 @@ insert into config.data_source_config(created_date, updated_date, db_name, db_le
 values
 (now(), now(),'db3', 'DEDICATED','localhost:3306', 'root', 'root', 0);
 
-create database db1;
+insert into subject_area(created_date, updated_date, version, name, description) 
+values
+(now(), now(), 0, 'Applications','Applications');
 
-create database db2;
+insert into subject_area(created_date, updated_date, version, name, description) 
+values
+(now(), now(), 0, 'Organization','Organization');
 
-create database db3;
+insert into subject_area(created_date, updated_date, version, name, description) 
+values
+(now(), now(), 0, 'Programs And Projects','Programs And Projects');
+
+insert into subject_area(created_date, updated_date, version, name, description) 
+values
+(now(), now(), 0, 'Requirements','Requirements');
+
+insert into subject_area(created_date, updated_date, version, name, description) 
+values
+(now(), now(), 0, 'Testing','Testing');
+
+insert into subject_area(created_date, updated_date, version, name, description) 
+values
+(now(), now(), 0, 'Defects','Defects');

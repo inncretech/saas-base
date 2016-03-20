@@ -1,7 +1,7 @@
 package com.inncretech.identity.service;
 
 import com.inncretech.multitenancy.datasource.tenant.dto.UserDTO;
-import com.inncretech.multitenancy.datasource.tenant.entity.User;
+import com.inncretech.multitenancy.datasource.tenant.entity.UserData;
 
 public interface UserService {
 
@@ -9,7 +9,7 @@ public interface UserService {
 
     UserDTO getUserByEmail(String email);
 
-    User authenticateUserByEmail(String userName, char[] password);
+    UserData authenticateUserByEmail(String userName, char[] password);
 
     String generateAccessToken(String userName, char[] password);
 

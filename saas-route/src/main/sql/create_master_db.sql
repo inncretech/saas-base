@@ -32,3 +32,13 @@ CREATE TABLE config.`id_entry` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `subject_area` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_date` datetime NOT NULL,
+  `updated_date` datetime NOT NULL,
+  `version` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

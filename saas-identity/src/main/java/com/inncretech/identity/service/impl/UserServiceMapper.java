@@ -7,12 +7,12 @@ import org.springframework.util.StringUtils;
 
 import com.inncretech.identity.utils.MapperUtils;
 import com.inncretech.multitenancy.datasource.tenant.dto.UserDTO;
-import com.inncretech.multitenancy.datasource.tenant.entity.User;
+import com.inncretech.multitenancy.datasource.tenant.entity.UserData;
 
 @Component
 public class UserServiceMapper {
 
-    public void mapUserFromUserDTO(UserDTO userDTO, User user) {
+    public void mapUserFromUserDTO(UserDTO userDTO, UserData user) {
 
         checkArgument(userDTO, MapperUtils.Object_Type.SOURCE);
         checkArgument(user, MapperUtils.Object_Type.DESTINATION);
@@ -36,7 +36,7 @@ public class UserServiceMapper {
 
     }
 
-    public void mapUserDTOFromUser(User user, UserDTO userDTO) {
+    public void mapUserDTOFromUser(UserData user, UserDTO userDTO) {
         checkArgument(user, MapperUtils.Object_Type.SOURCE);
         checkArgument(userDTO, MapperUtils.Object_Type.DESTINATION);
         userDTO.setUserId(user.getId());

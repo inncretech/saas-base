@@ -1,59 +1,96 @@
 CREATE TABLE `agent` (
   `id` bigint(20) NOT NULL,
-  `created_date` datetime DEFAULT NULL,
-  `updated_date` datetime DEFAULT NULL,
-  `version` int(11) DEFAULT NULL,
+  `created_date` datetime NOT NULL,
+  `updated_date` datetime NOT NULL,
+  `version` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `tenant_id` bigint(20) DEFAULT NULL,
+  `url` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `datasource_db` (
+  `id` bigint(20) NOT NULL,
+  `created_date` datetime NOT NULL,
+  `updated_date` datetime NOT NULL,
+  `version` int(11) NOT NULL,
+  `db_instance_type` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `tenant_id` bigint(20) DEFAULT NULL,
+  `url` varchar(255) NOT NULL,
+  `connection_timeout` int(11) DEFAULT NULL,
+  `max_connection` int(11) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `datasource_rest` (
+  `id` bigint(20) NOT NULL,
+  `created_date` datetime NOT NULL,
+  `updated_date` datetime NOT NULL,
+  `version` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `tenant_id` bigint(20) DEFAULT NULL,
+  `url` varchar(255) NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `datasource_jira` (
+  `id` bigint(20) NOT NULL,
+  `created_date` datetime NOT NULL,
+  `updated_date` datetime NOT NULL,
+  `version` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `tenant_id` bigint(20) DEFAULT NULL,
+  `url` varchar(255) NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `scheduled_info` (
+  `id` bigint(20) NOT NULL,
+  `created_date` datetime NOT NULL,
+  `updated_date` datetime NOT NULL,
+  `version` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `cron_expression` varchar(255) DEFAULT NULL,
   `tenant_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `connection_db` (
-  `id` bigint(20) NOT NULL,
-  `created_date` datetime DEFAULT NULL,
-  `updated_date` datetime DEFAULT NULL,
-  `version` int(11) DEFAULT NULL,
-  `db_instance_type` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `tenant_id` bigint(20) DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `command_definition` (
   `id` bigint(20) NOT NULL,
-  `created_date` datetime DEFAULT NULL,
-  `updated_date` datetime DEFAULT NULL,
-  `version` int(11) DEFAULT NULL,
+  `created_date` datetime NOT NULL,
+  `updated_date` datetime NOT NULL,
+  `version` int(11) NOT NULL,
   `agent_id` bigint(20) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
   `tenant_id` bigint(20) DEFAULT NULL,
+  `subject_area_id` int(11) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
   `etl_definition` text DEFAULT NULL,
-  `service_area` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `service_area_id` bigint(20) DEFAULT NULL,
+  `scheduled_info_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  foreign key (`scheduled_info_id`) references `scheduled_info` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `connection_rest` (
+CREATE TABLE `user_data` (
   `id` bigint(20) NOT NULL,
-  `created_date` datetime DEFAULT NULL,
-  `updated_date` datetime DEFAULT NULL,
-  `version` int(11) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `tenant_id` bigint(20) DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE `user` (
-  `id` bigint(20) NOT NULL,
-  `created_date` datetime DEFAULT NULL,
-  `updated_date` datetime DEFAULT NULL,
-  `version` int(11) DEFAULT NULL,
+  `created_date` datetime NOT NULL,
+  `updated_date` datetime NOT NULL,
+  `version` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
@@ -69,9 +106,9 @@ CREATE TABLE `user` (
 
 CREATE TABLE `user_access_token` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `created_date` datetime DEFAULT NULL,
-  `updated_date` datetime DEFAULT NULL,
-  `version` int(11) DEFAULT NULL,
+  `created_date` datetime NOT NULL,
+  `updated_date` datetime NOT NULL,
+  `version` int(11) NOT NULL,
   `access_token` varchar(255) DEFAULT NULL,
   `expiry_at` date DEFAULT NULL,
   `tenant_id` bigint(20) DEFAULT NULL,

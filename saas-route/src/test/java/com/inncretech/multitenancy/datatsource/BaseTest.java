@@ -10,6 +10,6 @@ import com.inncretech.multitenancy.datasource.config.MultiTenancyConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { MultiTenancyConfiguration.class })
 @ActiveProfiles("dev")
-public class BaseTest {
+public abstract class BaseTest {
 
 }
