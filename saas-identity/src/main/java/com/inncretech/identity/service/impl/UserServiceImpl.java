@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     private UserAccessTokenRepository userAccessTokenRepository;
 
     @Autowired
-    private UserDataRepository userRepository;
+    private UserDataRepository userDataRepository;
 
     @Override
     public UserDTO signin(String email, char[] password) {
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String generateAccessToken(String email, char[] password) {
-        UserData user = userRepository.findByEmail(email);
+        UserData user = userDataRepository.findByEmail(email);
         if (user != null) {
             UserAccessToken userAccessToken = passwordService.generateAccessToken(user, password);
             userAccessTokenRepository.save(userAccessToken);
@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO getUserById(Long userId) {
         UserDTO userDTO = new UserDTO();
-        UserData user = userRepository.getUserById(userId);
+        UserData user = userDataRepository.getUserById(userId);
         if (user == null) {
             System.out.println();
             return null;
@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserData authenticateUserByEmail(String email, char[] password) {
 
-        UserData user = userRepository.findByEmail(email);
+        UserData user = userDataRepository.findByEmail(email);
         if (passwordService.checkPassword(password, user)) {
             passwordService.generateAccessToken(user, password);
             return user;
@@ -125,7 +125,7 @@ public class UserServiceImpl implements UserService {
         try {
             user.setId(idGenerator.create());
             passwordService.initializeCryptoForNewUser(user);
-            userRepository.save(user);
+            userDataRepository.save(user);
         } catch (Exception exception) {
 
             exception.printStackTrace();
@@ -143,7 +143,7 @@ public class UserServiceImpl implements UserService {
         UserDTO userDTO = new UserDTO();
         System.out.println("UserServiceImpl " + email);
         ;
-        UserData user = userRepository.findByEmail(email);
+        UserData user = userDataRepository.findByEmail(email);
         if (user == null) {
             System.out.println();
             return null;

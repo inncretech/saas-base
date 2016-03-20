@@ -10,6 +10,6 @@ import com.inncretech.identity.config.IdentityConfig;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { IdentityConfig.class })
 @ActiveProfiles("dev")
-public class BaseTest {
+public abstract class BaseTest {
 
 }
