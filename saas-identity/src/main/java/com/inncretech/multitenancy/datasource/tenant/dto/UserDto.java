@@ -35,6 +35,8 @@ public class UserDto extends AbstractDto {
 
     private Date lastLoginDate;
 
+    private String authToken;
+
     @Valid
     private List<RoleDto> roles;
 
@@ -150,6 +152,14 @@ public class UserDto extends AbstractDto {
         this.roles = roles;
     }
 
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -160,4 +170,5 @@ public class UserDto extends AbstractDto {
                 .append(", lastLoginDate=").append(lastLoginDate).append(", roles=").append(roles).append("]");
         return builder.toString();
     }
+
 }
