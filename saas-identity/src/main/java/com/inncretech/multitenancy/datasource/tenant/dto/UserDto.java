@@ -6,7 +6,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.appanalytixs.dto.AbstractDto;
-import com.appanalytixs.dto.RoleDto;
 
 public class UserDto extends AbstractDto {
 
