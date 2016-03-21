@@ -5,12 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.util.Assert;
 
+import com.inncretech.multitenancy.datasource.AbstractRoutingTest;
 import com.inncretech.multitenancy.datasource.exceptions.MultiTenancyException;
 import com.inncretech.multitenancy.datasource.master.dto.TenantDTO;
-import com.inncretech.multitenancy.datatsource.BaseTest;
 import com.inncretech.multitenancy.service.TenantService;
 
-public class TestTenantServiceImpl extends BaseTest {
+public class TestTenantServiceImpl extends AbstractRoutingTest {
 
     @Autowired
     private TenantService tenantService;

@@ -60,6 +60,7 @@ public class RoutingDataSourceConfig {
                     "jdbc:mysql://" + config.getDbUrl() + "/" + config.getDbName() + "?zeroDateTimeBehavior=convertToNull&useSSL=false",
                     config.getDbUserName(), config.getDbPassword());
             targetDataSources.put((Integer) config.getId().intValue(), comboPooledDataSource);
+            System.out.println("Schema name: " + config.getDbName() + ", routing: " + comboPooledDataSource);
             routingDataSource.setDefaultTargetDataSource(comboPooledDataSource);
         }
         routingDataSource.setTargetDataSources(targetDataSources);

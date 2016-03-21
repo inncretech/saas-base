@@ -4,7 +4,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
 @MappedSuperclass
-public abstract class AbstractPersistentObject extends AuditDate {
+public abstract class AbstractPersistentObject extends AuditData {
 
     @Version
     private Integer version;
