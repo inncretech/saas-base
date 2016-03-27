@@ -7,12 +7,24 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.inncretech.multitenancy.datasource.dto.TenantAware;
+import com.inncretech.multitenancy.datasource.master.dto.enums.DbLeaseType;
 
 public class TenantDTO implements Serializable, TenantAware {
 
     private Long tenantId;
+    
+    private DbLeaseType dbLeaseType;
 
-    @NotBlank(message = "tenant name is blank")
+
+    public DbLeaseType getDbLeaseType() {
+		return dbLeaseType;
+	}
+
+	public void setDbLeaseType(DbLeaseType dbLeaseType) {
+		this.dbLeaseType = dbLeaseType;
+	}
+
+	@NotBlank(message = "tenant name is blank")
     private String tenantName;
 
     @NotBlank(message = "domain is blank")

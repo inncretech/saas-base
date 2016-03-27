@@ -59,7 +59,7 @@ public class TenantServiceImpl implements TenantService {
 
         
         
-        DataSourceConfig dataSourceConfig = findDataSourceConfigIdForTenant();
+        DataSourceConfig dataSourceConfig = findDataSourceConfigIdForTenant(tenantDTO);
         
         if (dataSourceConfig == null) {
             throw new MultiTenancyException("DB Config not found");
@@ -90,7 +90,13 @@ public class TenantServiceImpl implements TenantService {
     }
     
     ///TODO: need to use ID to compare
-    public DataSourceConfig findDataSourceConfigIdForTenant ( )throws DataSourceConfigException {
+    public DataSourceConfig findDataSourceConfigIdForTenant (TenantDTO tenantDTO )throws DataSourceConfigException {
+    	
+    	if(tenantDTO.getDbLeaseType()==com.inncretech.multitenancy.datasource.master.dto.enums.DbLeaseType.DEDICATED){
+    		// follow 1 logic
+    	}else {
+    		//follow other
+    	}
     	
     	
     	List <Tenant> tenants = tenantRepository.findAll();
