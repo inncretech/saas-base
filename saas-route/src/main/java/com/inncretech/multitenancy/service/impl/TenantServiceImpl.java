@@ -82,7 +82,8 @@ public class TenantServiceImpl implements TenantService {
         tenant.setDomain(tenantDTO.getDomain());
         tenant.setTenantDataSourceConfig(dataSourceConfig);
         tenant.setName(tenantDTO.getTenantName());
-        tenant.setMasterTenantId(idGenerator.create());
+        tenant.setMasterTenantId(idGenerator.create(dataSourceConfig.getId().intValue()));
+        tenant.setId(idGenerator.create(dataSourceConfig.getId().intValue()));
         tenantRepository.save(tenant);
         tenantDTO.setTenantId(tenant.getId());
         return tenantDTO;
