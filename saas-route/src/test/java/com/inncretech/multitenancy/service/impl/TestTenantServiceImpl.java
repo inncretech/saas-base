@@ -6,6 +6,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.util.Assert;
 
 import com.inncretech.multitenancy.datasource.AbstractRoutingTest;
+import com.inncretech.multitenancy.datasource.exceptions.DataSourceConfigException;
 import com.inncretech.multitenancy.datasource.exceptions.MultiTenancyException;
 import com.inncretech.multitenancy.datasource.master.dto.TenantDTO;
 import com.inncretech.multitenancy.service.TenantService;
@@ -17,14 +18,14 @@ public class TestTenantServiceImpl extends AbstractRoutingTest {
 
     @Rollback(false)
     @Test(expected = MultiTenancyException.class)
-    public void validationTest() {
+    public void validationTest()  throws Exception{
         TenantDTO tenantDTO = new TenantDTO();
         tenantService.addTenant(tenantDTO);
     }
 
     @Rollback(false)
     @Test(expected = MultiTenancyException.class)
-    public void addTenantNegative() {
+    public void addTenantNegative() throws Exception {
         TenantDTO tenantDTO = new TenantDTO();
         tenantDTO.setDataSourceConfigId(10l);
         tenantDTO.setDomain("test");
@@ -34,7 +35,7 @@ public class TestTenantServiceImpl extends AbstractRoutingTest {
 
     @Rollback(false)
     @Test
-    public void addTenant1() {
+    public void addTenant1() throws Exception {
         TenantDTO tenantDTO = new TenantDTO();
         tenantDTO.setDataSourceConfigId(1l);
         tenantDTO.setDomain("test1" + System.currentTimeMillis());
@@ -45,7 +46,7 @@ public class TestTenantServiceImpl extends AbstractRoutingTest {
 
     @Rollback(false)
     @Test
-    public void addTenant2() {
+    public void addTenant2() throws Exception{
         TenantDTO tenantDTO = new TenantDTO();
         tenantDTO.setDataSourceConfigId(2l);
         tenantDTO.setDomain("test2" + System.currentTimeMillis());
@@ -56,7 +57,7 @@ public class TestTenantServiceImpl extends AbstractRoutingTest {
 
     @Rollback(false)
     @Test
-    public void addTenant3() {
+    public void addTenant3() throws Exception {
         TenantDTO tenantDTO = new TenantDTO();
         tenantDTO.setDataSourceConfigId(3l);
         tenantDTO.setDomain("test" + System.currentTimeMillis());

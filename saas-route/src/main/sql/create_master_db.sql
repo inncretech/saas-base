@@ -33,7 +33,7 @@ CREATE TABLE config.`id_entry` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
-CREATE TABLE `subject_area` (
+CREATE TABLE config.`subject_area` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `created_date` datetime NOT NULL,
   `updated_date` datetime NOT NULL,

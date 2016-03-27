@@ -1,6 +1,9 @@
 package com.inncretech.multitenancy.service.impl;
 
 import java.beans.PropertyVetoException;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.inncretech.multitenancy.datasource.config.RoutingDataSource;
 import com.inncretech.multitenancy.datasource.enums.DbLeaseType;
+import com.inncretech.multitenancy.datasource.exceptions.DataSourceConfigException;
 import com.inncretech.multitenancy.datasource.exceptions.MultiTenancyException;
+import com.inncretech.multitenancy.datasource.exceptions.TenantDomainException;
 import com.inncretech.multitenancy.datasource.master.dao.DataSourceConfigRepository;
 import com.inncretech.multitenancy.datasource.master.dao.TenantRepository;
 import com.inncretech.multitenancy.datasource.master.dto.DataSourceConfigDTO;
@@ -49,15 +54,30 @@ public class TenantServiceImpl implements TenantService {
     private int acquireIncrement = 1;
 
     @Transactional
-    public TenantDTO addTenant(TenantDTO tenantDTO) {
+    public TenantDTO addTenant(TenantDTO tenantDTO) throws TenantDomainException, 
+    			DataSourceConfigException, MultiTenancyException {
 
-        tenantValidator.validateTenantDTO(tenantDTO);
-
-        DataSourceConfig dataSourceConfig = dataSourceConfigRepository.findOne(tenantDTO.getDataSourceConfigId());
-
+        
+        
+        DataSourceConfig dataSourceConfig = findDataSourceConfigIdForTenant();
+        
         if (dataSourceConfig == null) {
             throw new MultiTenancyException("DB Config not found");
         }
+        
+        System.out.println("TenantService : addTenant DSC "+ dataSourceConfig.toString());
+        
+        tenantDTO.setDataSourceConfigId(dataSourceConfig.getId());
+
+      
+        
+        tenantValidator.validateTenantDTO(tenantDTO);
+        
+        List<Tenant> tenants = tenantRepository.findByDomain(tenantDTO.getDomain());
+        if(tenants!=null && tenants.size()>0){
+        	throw new TenantDomainException("Domain AlreadyExists");
+        }
+        
         Tenant tenant = new Tenant();
         tenant.setDomain(tenantDTO.getDomain());
         tenant.setTenantDataSourceConfig(dataSourceConfig);
@@ -66,6 +86,33 @@ public class TenantServiceImpl implements TenantService {
         tenantRepository.save(tenant);
         tenantDTO.setTenantId(tenant.getId());
         return tenantDTO;
+    }
+    
+    ///TODO: need to use ID to compare
+    public DataSourceConfig findDataSourceConfigIdForTenant ( )throws DataSourceConfigException {
+    	
+    	
+    	List <Tenant> tenants = tenantRepository.findAll();
+    	Set<DataSourceConfig> tenantDSCSet = new HashSet<DataSourceConfig>();
+    	if(tenants!=null && tenants.size()>0){
+    		for(Tenant tenant : tenants ){
+    			tenantDSCSet.add(tenant.getTenantDataSourceConfig());
+    		}
+    	}else {
+    		System.out.println("No existing tenants");
+    	}
+    	List <DataSourceConfig> dataSourceConfigs= dataSourceConfigRepository.findAll();
+    	if(dataSourceConfigs!=null && dataSourceConfigs.size()>0){
+	    	for (DataSourceConfig dataSourceConfig : dataSourceConfigs){
+	    		if(!(tenantDSCSet.contains(dataSourceConfig))){
+	    			return dataSourceConfig;
+	    		}
+	    	}
+    	}
+    	throw new DataSourceConfigException("No valid DataSourceConfig Found");
+    	
+    	
+    	
     }
 
     public TenantDTO getTenantMetaData(Long tenantId) {

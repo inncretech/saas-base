@@ -10,6 +10,8 @@ import com.appanalytixs.dto.AbstractDto;
 public class UserDto extends AbstractDto {
 
     private Long userId;
+    
+    private Long tenantId;
 
     private String userName;
 
@@ -170,5 +172,13 @@ public class UserDto extends AbstractDto {
                 .append(", lastLoginDate=").append(lastLoginDate).append(", roles=").append(roles).append("]");
         return builder.toString();
     }
+
+	public Long getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(Long tenantId) {
+		this.tenantId = tenantId;
+	}
 
 }
