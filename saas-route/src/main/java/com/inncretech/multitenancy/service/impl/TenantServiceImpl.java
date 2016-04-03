@@ -54,30 +54,22 @@ public class TenantServiceImpl implements TenantService {
     private int acquireIncrement = 1;
 
     @Transactional
-    public TenantDTO addTenant(TenantDTO tenantDTO) throws TenantDomainException, 
-    			DataSourceConfigException, MultiTenancyException {
-
-        
-        
+    public TenantDTO addTenant(TenantDTO tenantDTO) throws TenantDomainException, DataSourceConfigException, MultiTenancyException {
         DataSourceConfig dataSourceConfig = findDataSourceConfigIdForTenant(tenantDTO);
-        
+
         if (dataSourceConfig == null) {
             throw new MultiTenancyException("DB Config not found");
         }
-        
-        System.out.println("TenantService : addTenant DSC "+ dataSourceConfig.toString());
-        
-        tenantDTO.setDataSourceConfigId(dataSourceConfig.getId());
 
-      
-        
+        System.out.println("TenantService : addTenant DSC " + dataSourceConfig.toString());
+        tenantDTO.setDataSourceConfigId(dataSourceConfig.getId());
         tenantValidator.validateTenantDTO(tenantDTO);
-        
+
         List<Tenant> tenants = tenantRepository.findByDomain(tenantDTO.getDomain());
-        if(tenants!=null && tenants.size()>0){
-        	throw new TenantDomainException("Domain AlreadyExists");
+        if (tenants != null && tenants.size() > 0) {
+            throw new TenantDomainException("Domain AlreadyExists");
         }
-        
+
         Tenant tenant = new Tenant();
         tenant.setDomain(tenantDTO.getDomain());
         tenant.setTenantDataSourceConfig(dataSourceConfig);
@@ -88,38 +80,35 @@ public class TenantServiceImpl implements TenantService {
         tenantDTO.setTenantId(tenant.getId());
         return tenantDTO;
     }
-    
-    ///TODO: need to use ID to compare
-    public DataSourceConfig findDataSourceConfigIdForTenant (TenantDTO tenantDTO )throws DataSourceConfigException {
-    	
-    	if(tenantDTO.getDbLeaseType()==com.inncretech.multitenancy.datasource.master.dto.enums.DbLeaseType.DEDICATED){
-    		// follow 1 logic
-    	}else {
-    		//follow other
-    	}
-    	
-    	
-    	List <Tenant> tenants = tenantRepository.findAll();
-    	Set<DataSourceConfig> tenantDSCSet = new HashSet<DataSourceConfig>();
-    	if(tenants!=null && tenants.size()>0){
-    		for(Tenant tenant : tenants ){
-    			tenantDSCSet.add(tenant.getTenantDataSourceConfig());
-    		}
-    	}else {
-    		System.out.println("No existing tenants");
-    	}
-    	List <DataSourceConfig> dataSourceConfigs= dataSourceConfigRepository.findAll();
-    	if(dataSourceConfigs!=null && dataSourceConfigs.size()>0){
-	    	for (DataSourceConfig dataSourceConfig : dataSourceConfigs){
-	    		if(!(tenantDSCSet.contains(dataSourceConfig))){
-	    			return dataSourceConfig;
-	    		}
-	    	}
-    	}
-    	throw new DataSourceConfigException("No valid DataSourceConfig Found");
-    	
-    	
-    	
+
+    /// TODO: need to use ID to compare
+    public DataSourceConfig findDataSourceConfigIdForTenant(TenantDTO tenantDTO) throws DataSourceConfigException {
+
+        if (tenantDTO.getDbLeaseType() == com.inncretech.multitenancy.datasource.master.dto.enums.DbLeaseType.DEDICATED) {
+            // follow 1 logic
+        } else {
+            // follow other
+        }
+
+        List<Tenant> tenants = tenantRepository.findAll();
+        Set<DataSourceConfig> tenantDSCSet = new HashSet<DataSourceConfig>();
+        if (tenants != null && tenants.size() > 0) {
+            for (Tenant tenant : tenants) {
+                tenantDSCSet.add(tenant.getTenantDataSourceConfig());
+            }
+        } else {
+            System.out.println("No existing tenants");
+        }
+        List<DataSourceConfig> dataSourceConfigs = dataSourceConfigRepository.findAll();
+        if (dataSourceConfigs != null && dataSourceConfigs.size() > 0) {
+            for (DataSourceConfig dataSourceConfig : dataSourceConfigs) {
+                if (!(tenantDSCSet.contains(dataSourceConfig))) {
+                    return dataSourceConfig;
+                }
+            }
+        }
+        throw new DataSourceConfigException("No valid DataSourceConfig Found");
+
     }
 
     public TenantDTO getTenantMetaData(Long tenantId) {
