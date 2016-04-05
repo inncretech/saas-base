@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+import com.inncretech.multitenancy.datasource.context.DbContextHolder;
 import com.inncretech.multitenancy.datasource.dto.TenantAware;
 import com.inncretech.multitenancy.datasource.master.dao.IdEntryRepository;
 import com.inncretech.multitenancy.datasource.master.entity.IdEntry;
@@ -57,7 +58,6 @@ public class IdGenerator implements IdentifierGenerator, ApplicationContextAware
 
 	@Override
 	public Serializable generate(SessionImplementor session, Object object) throws HibernateException {
-		TenantAware tenantAware = (TenantAware) object;
-		return create(tenantAware.getTenantId().intValue());
+		return create(DbContextHolder.getShardId());
 	}
 }
