@@ -4,7 +4,11 @@ import java.util.List;
 
 public class MultiTenancyException extends RuntimeException {
 
-    private List<String> errorCodes;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private List<String> errorCodes;
 
     public MultiTenancyException(Throwable cause) {
         super(cause);
