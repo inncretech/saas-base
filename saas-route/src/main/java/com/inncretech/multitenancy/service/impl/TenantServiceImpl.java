@@ -102,7 +102,8 @@ public class TenantServiceImpl implements TenantService {
         List<DataSourceConfig> dataSourceConfigs = dataSourceConfigRepository.findAll();
         if (dataSourceConfigs != null && dataSourceConfigs.size() > 0) {
             for (DataSourceConfig dataSourceConfig : dataSourceConfigs) {
-                if (!(tenantDSCSet.contains(dataSourceConfig))) {
+                // if (!(tenantDSCSet.contains(dataSourceConfig))) {
+                if (dataSourceConfig.getId() == 3) {
                     return dataSourceConfig;
                 }
             }
