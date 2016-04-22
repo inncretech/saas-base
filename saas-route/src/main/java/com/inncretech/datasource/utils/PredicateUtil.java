@@ -1,7 +1,9 @@
 package com.inncretech.datasource.utils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import org.springframework.util.Assert;
 import org.springframework.util.NumberUtils;
 
 import com.inncretech.data.domain.FilterField;
@@ -17,8 +19,23 @@ public class PredicateUtil {
     private PredicateUtil() {
     }
 
-    public static <EntityType> BooleanExpression getPredicate(Class<EntityType> clazz, String entityName, FilterField filterField) {
+    public static <EntityType> BooleanExpression getPredicate(Class<EntityType> clazz, String entityName, List<FilterField> filterFields) {
+        Assert.notNull(clazz);
+        Assert.notNull(entityName);
+        if (filterFields == null || filterFields.size() <= 0) {
+            return null;
+        }
         PathBuilder<EntityType> entityPath = new PathBuilder<EntityType>(clazz, entityName);
+        BooleanExpression[] expressions = new BooleanExpression[filterFields.size()];
+        int i = 0;
+        for (FilterField filterField : filterFields) {
+            BooleanExpression booleanExpression = getPredicate(entityPath, filterField);
+            expressions[i++] = booleanExpression;
+        }
+        return BooleanExpression.allOf(expressions);
+    }
+
+    public static <EntityType> BooleanExpression getPredicate(PathBuilder<EntityType> entityPath, FilterField filterField) {
         if (filterField.getRange() != null) {
             return getRangeQuery(entityPath, filterField, Long.class);
         }

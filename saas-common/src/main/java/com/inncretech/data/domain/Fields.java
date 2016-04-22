@@ -17,4 +17,11 @@ public class Fields {
     public void setFields(List<String> fields) {
         this.fields = fields;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Fields [fields=").append(fields).append("]");
+        return builder.toString();
+    }
 }

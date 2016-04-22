@@ -105,5 +105,12 @@ public class FilterField {
 		}		
 		return ret;
 	}
-		
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("FilterField [field=").append(field).append(", value=").append(value).append(", negated=").append(negated).append(", range=")
+                .append(range).append(", set=").append(set).append("]");
+        return builder.toString();
+    }
 }
