@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.util.Assert;
 import org.springframework.util.NumberUtils;
 
-import com.inncretech.data.domain.FilterField;
+import com.inncretech.data.domain.FieldFilter;
 import com.inncretech.data.domain.RangeValue;
 import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.path.DateTimePath;
@@ -19,7 +19,7 @@ public class PredicateUtil {
     private PredicateUtil() {
     }
 
-    public static <EntityType> BooleanExpression getPredicate(Class<EntityType> clazz, String entityName, List<FilterField> filterFields) {
+    public static <EntityType> BooleanExpression getPredicate(Class<EntityType> clazz, String entityName, List<FieldFilter> filterFields) {
         Assert.notNull(clazz);
         Assert.notNull(entityName);
         if (filterFields == null || filterFields.size() <= 0) {
@@ -28,14 +28,14 @@ public class PredicateUtil {
         PathBuilder<EntityType> entityPath = new PathBuilder<EntityType>(clazz, entityName);
         BooleanExpression[] expressions = new BooleanExpression[filterFields.size()];
         int i = 0;
-        for (FilterField filterField : filterFields) {
+        for (FieldFilter filterField : filterFields) {
             BooleanExpression booleanExpression = getPredicate(entityPath, filterField);
             expressions[i++] = booleanExpression;
         }
         return BooleanExpression.allOf(expressions);
     }
 
-    public static <EntityType> BooleanExpression getPredicate(PathBuilder<EntityType> entityPath, FilterField filterField) {
+    public static <EntityType> BooleanExpression getPredicate(PathBuilder<EntityType> entityPath, FieldFilter filterField) {
         if (filterField.getRange() != null) {
             return getRangeQuery(entityPath, filterField, Long.class);
         }
@@ -50,7 +50,7 @@ public class PredicateUtil {
         return path.containsIgnoreCase(filterField.getValue().toString());
     }
 
-    private static <EntityType, RangeType> BooleanExpression getRangeQuery(PathBuilder<EntityType> entityPath, FilterField filterField,
+    private static <EntityType, RangeType> BooleanExpression getRangeQuery(PathBuilder<EntityType> entityPath, FieldFilter filterField,
             Class<RangeType> clazz) {
         if (filterField.getRange() == null) {
             return null;
@@ -65,7 +65,7 @@ public class PredicateUtil {
         return null;
     }
 
-    private static <EntityType> BooleanExpression getRangeQueryForNumber(PathBuilder<EntityType> entityPath, FilterField filterField) {
+    private static <EntityType> BooleanExpression getRangeQueryForNumber(PathBuilder<EntityType> entityPath, FieldFilter filterField) {
 
         Long rightNumber = null;
         Long leftNumber = null;
@@ -109,7 +109,7 @@ public class PredicateUtil {
 
     }
 
-    private static <EntityType> BooleanExpression getRangeQueryForDate(PathBuilder<EntityType> entityPath, FilterField filterField) {
+    private static <EntityType> BooleanExpression getRangeQueryForDate(PathBuilder<EntityType> entityPath, FieldFilter filterField) {
 
         LocalDateTime rightDateTime = null;
         LocalDateTime leftDateTime = null;

@@ -7,7 +7,7 @@ import java.util.Set;
  * An element of a filter parameter used to specify a specific filter that should be used in a search query
  *
  */
-public class FilterField {
+public class FieldFilter {
 	private static final String DELIMITER = ":";
 	private static final String PREFIX_SET = "{";
 	private static final String SUFFIX_SET = "}";
@@ -64,7 +64,7 @@ public class FilterField {
 	 * Constructor to create a filter
 	 * @param filter
 	 */
-	public FilterField(String filter) {
+	public FieldFilter(String filter) {
 		String tFilter = filter.trim();
 		int delim = tFilter.indexOf(DELIMITER);
 		if (delim != -1) {
