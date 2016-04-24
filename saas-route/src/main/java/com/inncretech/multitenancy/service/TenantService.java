@@ -10,7 +10,7 @@ public interface TenantService {
 
     TenantDto addTenant(TenantDto tenantDTO) throws TenantDomainException, DataSourceConfigException, MultiTenancyException;
 
-    TenantDto getTenantMetaData(Long tenantId);
+    TenantDto getTenant(Long tenantId);
 
     DataSourceConfigDto addDataSourceConfig(DataSourceConfigDto dataSourceConfigDTO);
 }

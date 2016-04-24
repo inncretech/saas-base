@@ -68,6 +68,6 @@ public class TestTenantServiceImpl extends AbstractRoutingTest {
     @Rollback(false)
     @Test(expected = MultiTenancyException.class)
     public void getTenants() {
-        tenantService.getTenantMetaData(null);
+        tenantService.getTenant(null);
     }
 }

@@ -112,7 +112,7 @@ public class TenantServiceImpl implements TenantService {
 
     }
 
-    public TenantDto getTenantMetaData(Long tenantId) {
+    public TenantDto getTenant(Long tenantId) {
         if (tenantId == null || tenantId < 0) {
             throw new MultiTenancyException("Tenant id null");
         }
