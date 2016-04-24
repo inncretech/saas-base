@@ -6,7 +6,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.util.Assert;
 
 import com.inncretech.multitenancy.datasource.AbstractRoutingTest;
-import com.inncretech.multitenancy.datasource.exceptions.DataSourceConfigException;
 import com.inncretech.multitenancy.datasource.exceptions.MultiTenancyException;
 import com.inncretech.multitenancy.datasource.master.dto.TenantDTO;
 import com.inncretech.multitenancy.service.TenantService;
@@ -18,7 +17,7 @@ public class TestTenantServiceImpl extends AbstractRoutingTest {
 
     @Rollback(false)
     @Test(expected = MultiTenancyException.class)
-    public void validationTest()  throws Exception{
+    public void validationTest() throws Exception {
         TenantDTO tenantDTO = new TenantDTO();
         tenantService.addTenant(tenantDTO);
     }
@@ -46,7 +45,7 @@ public class TestTenantServiceImpl extends AbstractRoutingTest {
 
     @Rollback(false)
     @Test
-    public void addTenant2() throws Exception{
+    public void addTenant2() throws Exception {
         TenantDTO tenantDTO = new TenantDTO();
         tenantDTO.setDataSourceConfigId(2l);
         tenantDTO.setDomain("test2" + System.currentTimeMillis());
