@@ -8,5 +8,5 @@ import com.inncretech.multitenancy.datasource.tenant.entity.Role;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    Role getRoleByRoleName(String roleName);
+    Role getRoleByName(String name);
 }

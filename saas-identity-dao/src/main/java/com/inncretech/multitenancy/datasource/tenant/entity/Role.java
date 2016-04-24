@@ -23,28 +23,6 @@ public class Role extends AbstractPersistentObject implements TenantAware {
     @Column(name = "tenant_id")
     private Long tenantId;
 
-    @Column(name = "rolename", unique = true)
-    private String roleName;
-
-    @Column(name = "description")
-    private String roleDescription;
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public String getRoleDescription() {
-        return roleDescription;
-    }
-
-    public void setRoleDescription(String roleDescription) {
-        this.roleDescription = roleDescription;
-    }
-
     public Long getId() {
         return id;
     }
@@ -65,7 +43,8 @@ public class Role extends AbstractPersistentObject implements TenantAware {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((roleName == null) ? 0 : roleName.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((tenantId == null) ? 0 : tenantId.hashCode());
         return result;
     }
 
@@ -78,10 +57,15 @@ public class Role extends AbstractPersistentObject implements TenantAware {
         if (getClass() != obj.getClass())
             return false;
         Role other = (Role) obj;
-        if (roleName == null) {
-            if (other.roleName != null)
+        if (id == null) {
+            if (other.id != null)
                 return false;
-        } else if (!roleName.equals(other.roleName))
+        } else if (!id.equals(other.id))
+            return false;
+        if (tenantId == null) {
+            if (other.tenantId != null)
+                return false;
+        } else if (!tenantId.equals(other.tenantId))
             return false;
         return true;
     }

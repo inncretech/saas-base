@@ -21,12 +21,6 @@ public class SubjectArea extends AbstractPersistentObject {
     @Column(name = "id")
     private Long id;
 
-    @Column
-    private String name;
-
-    @Column
-    private String description;
-
     public Long getId() {
         return id;
     }
@@ -35,26 +29,10 @@ public class SubjectArea extends AbstractPersistentObject {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("SubjectArea [id=").append(id).append(", name=").append(name).append(", description=").append(description).append("]");
+        builder.append("SubjectArea [id=").append(id).append("]");
         return builder.toString();
     }
 }

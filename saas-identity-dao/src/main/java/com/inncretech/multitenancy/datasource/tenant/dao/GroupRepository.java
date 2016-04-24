@@ -8,6 +8,6 @@ import com.inncretech.multitenancy.datasource.tenant.entity.Group;
 @Repository
 public interface GroupRepository extends JpaRepository<Group, Long> {
 
-    Group getGroupByGroupName(String groupName);
+    Group getGroupByName(String name);
 
 }

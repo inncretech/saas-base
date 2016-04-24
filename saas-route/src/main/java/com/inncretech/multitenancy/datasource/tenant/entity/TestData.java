@@ -24,12 +24,6 @@ public class TestData extends AbstractPersistentObject implements TenantAware {
     @Column(name = "tenant_id")
     private Long tenantId;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "description")
-    private String description;
-
     public Long getId() {
         return id;
     }
@@ -48,27 +42,10 @@ public class TestData extends AbstractPersistentObject implements TenantAware {
         this.tenantId = tenantId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("TestData [id=").append(id).append(", tenantId=").append(tenantId).append(", name=").append(name).append(", description=")
-                .append(description).append("]");
+        builder.append("TestData [id=").append(id).append(", tenantId=").append(tenantId).append("]");
         return builder.toString();
     }
 }

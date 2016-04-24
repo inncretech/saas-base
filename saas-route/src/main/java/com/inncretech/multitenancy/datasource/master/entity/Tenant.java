@@ -28,8 +28,6 @@ public class Tenant extends AbstractPersistentObject {
     @Column(name = "domain", unique = true)
     private String domain;
 
-    private String name;
-
     @ManyToOne(targetEntity = DataSourceConfig.class)
     @JoinColumn(name = "data_source_config_id")
     private DataSourceConfig tenantDataSourceConfig;
@@ -64,13 +62,5 @@ public class Tenant extends AbstractPersistentObject {
 
     public void setMasterTenantId(Long masterTenantId) {
         this.masterTenantId = masterTenantId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }
