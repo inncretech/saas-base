@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.inncretech.multitenancy.datasource.dto.TenantAware;
 import com.inncretech.multitenancy.datasource.master.dto.enums.DbLeaseType;
 
-public class TenantDTO implements Serializable, TenantAware {
+public class TenantDto implements Serializable, TenantAware {
 
     private Long tenantId;
     

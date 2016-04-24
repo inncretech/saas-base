@@ -16,8 +16,8 @@ import com.inncretech.multitenancy.datasource.exceptions.MultiTenancyException;
 import com.inncretech.multitenancy.datasource.exceptions.TenantDomainException;
 import com.inncretech.multitenancy.datasource.master.dao.DataSourceConfigRepository;
 import com.inncretech.multitenancy.datasource.master.dao.TenantRepository;
-import com.inncretech.multitenancy.datasource.master.dto.DataSourceConfigDTO;
-import com.inncretech.multitenancy.datasource.master.dto.TenantDTO;
+import com.inncretech.multitenancy.datasource.master.dto.DataSourceConfigDto;
+import com.inncretech.multitenancy.datasource.master.dto.TenantDto;
 import com.inncretech.multitenancy.datasource.master.entity.DataSourceConfig;
 import com.inncretech.multitenancy.datasource.master.entity.Tenant;
 import com.inncretech.multitenancy.datasource.utils.DataSourceUtils;
@@ -54,7 +54,7 @@ public class TenantServiceImpl implements TenantService {
     private int acquireIncrement = 1;
 
     @Transactional
-    public TenantDTO addTenant(TenantDTO tenantDTO) throws TenantDomainException, DataSourceConfigException, MultiTenancyException {
+    public TenantDto addTenant(TenantDto tenantDTO) throws TenantDomainException, DataSourceConfigException, MultiTenancyException {
         DataSourceConfig dataSourceConfig = findDataSourceConfigIdForTenant(tenantDTO);
 
         if (dataSourceConfig == null) {
@@ -82,7 +82,7 @@ public class TenantServiceImpl implements TenantService {
     }
 
     /// TODO: need to use ID to compare
-    public DataSourceConfig findDataSourceConfigIdForTenant(TenantDTO tenantDTO) throws DataSourceConfigException {
+    public DataSourceConfig findDataSourceConfigIdForTenant(TenantDto tenantDTO) throws DataSourceConfigException {
 
         if (tenantDTO.getDbLeaseType() == com.inncretech.multitenancy.datasource.master.dto.enums.DbLeaseType.DEDICATED) {
             // follow 1 logic
@@ -112,7 +112,7 @@ public class TenantServiceImpl implements TenantService {
 
     }
 
-    public TenantDTO getTenantMetaData(Long tenantId) {
+    public TenantDto getTenantMetaData(Long tenantId) {
         if (tenantId == null || tenantId < 0) {
             throw new MultiTenancyException("Tenant id null");
         }
@@ -120,7 +120,7 @@ public class TenantServiceImpl implements TenantService {
         if (tenant == null) {
             throw new MultiTenancyException("Tenant id not found");
         }
-        TenantDTO tenantDTO = new TenantDTO();
+        TenantDto tenantDTO = new TenantDto();
         tenantDTO.setTenantId(tenant.getId());
         tenantDTO.setDomain(tenantDTO.getDomain());
         tenantDTO.setDataSourceConfigId(tenant.getTenantDataSourceConfig().getId());
@@ -128,7 +128,7 @@ public class TenantServiceImpl implements TenantService {
         return tenantDTO;
     }
 
-    public DataSourceConfigDTO addDataSourceConfig(DataSourceConfigDTO dataSourceConfigDTO) {
+    public DataSourceConfigDto addDataSourceConfig(DataSourceConfigDto dataSourceConfigDTO) {
         DataSourceConfig dataSourceConfigId = new DataSourceConfig();
         dataSourceConfigId.setDbName(dataSourceConfigDTO.getDbName());
         dataSourceConfigId.setDbPassword(dataSourceConfigDTO.getDbPassword());

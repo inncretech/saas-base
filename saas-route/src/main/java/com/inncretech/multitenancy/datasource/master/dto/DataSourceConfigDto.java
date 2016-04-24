@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.inncretech.multitenancy.datasource.enums.DbLeaseType;
 
 
-public class DataSourceConfigDTO implements Serializable {
+public class DataSourceConfigDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

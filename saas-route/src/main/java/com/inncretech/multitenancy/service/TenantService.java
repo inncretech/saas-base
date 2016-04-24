@@ -3,14 +3,14 @@ package com.inncretech.multitenancy.service;
 import com.inncretech.multitenancy.datasource.exceptions.DataSourceConfigException;
 import com.inncretech.multitenancy.datasource.exceptions.MultiTenancyException;
 import com.inncretech.multitenancy.datasource.exceptions.TenantDomainException;
-import com.inncretech.multitenancy.datasource.master.dto.DataSourceConfigDTO;
-import com.inncretech.multitenancy.datasource.master.dto.TenantDTO;
+import com.inncretech.multitenancy.datasource.master.dto.DataSourceConfigDto;
+import com.inncretech.multitenancy.datasource.master.dto.TenantDto;
 
 public interface TenantService {
 
-    TenantDTO addTenant(TenantDTO tenantDTO) throws TenantDomainException, DataSourceConfigException, MultiTenancyException;
+    TenantDto addTenant(TenantDto tenantDTO) throws TenantDomainException, DataSourceConfigException, MultiTenancyException;
 
-    TenantDTO getTenantMetaData(Long tenantId);
+    TenantDto getTenantMetaData(Long tenantId);
 
-    DataSourceConfigDTO addDataSourceConfig(DataSourceConfigDTO dataSourceConfigDTO);
+    DataSourceConfigDto addDataSourceConfig(DataSourceConfigDto dataSourceConfigDTO);
 }
