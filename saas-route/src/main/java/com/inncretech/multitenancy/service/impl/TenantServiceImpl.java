@@ -63,7 +63,7 @@ public class TenantServiceImpl implements TenantService {
 
         System.out.println("TenantService : addTenant DSC " + dataSourceConfig.toString());
         tenantDTO.setDataSourceConfigId(dataSourceConfig.getId());
-        tenantValidator.validateTenantDTO(tenantDTO);
+        tenantValidator.validateTenantDto(tenantDTO);
 
         List<Tenant> tenants = tenantRepository.findByDomain(tenantDTO.getDomain());
         if (tenants != null && tenants.size() > 0) {

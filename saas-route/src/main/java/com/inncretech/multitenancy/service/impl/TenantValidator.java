@@ -16,24 +16,24 @@ import com.inncretech.multitenancy.datasource.master.dto.TenantDto;
 @Component
 public class TenantValidator {
 
-	@Autowired
-	private Validator validator;
+    @Autowired
+    private Validator validator;
 
-	public void validateTenantDTO(TenantDto tenantDTO) {
-		List<String> errorCodes = new ArrayList<String>();
-		if (tenantDTO == null) {
-			errorCodes.add("tenant DTO is null");
-		} else {
+    public void validateTenantDto(TenantDto tenantDTO) {
+        List<String> errorCodes = new ArrayList<String>();
+        if (tenantDTO == null) {
+            errorCodes.add("tenant DTO is null");
+        } else {
 
-			Set<ConstraintViolation<TenantDto>> tenantConstraintViolations = validator.validate(tenantDTO);
-			if (tenantConstraintViolations != null && !tenantConstraintViolations.isEmpty()) {
-				for (ConstraintViolation<TenantDto> violation : tenantConstraintViolations) {
-					errorCodes.add(violation.getMessage());
-				}
-			}
-		}
-		if (errorCodes != null && !errorCodes.isEmpty()) {
-			throw new MultiTenancyException("Some Field in tenantDTO has problem", errorCodes);
-		}
-	}
+            Set<ConstraintViolation<TenantDto>> tenantConstraintViolations = validator.validate(tenantDTO);
+            if (tenantConstraintViolations != null && !tenantConstraintViolations.isEmpty()) {
+                for (ConstraintViolation<TenantDto> violation : tenantConstraintViolations) {
+                    errorCodes.add(violation.getMessage());
+                }
+            }
+        }
+        if (errorCodes != null && !errorCodes.isEmpty()) {
+            throw new MultiTenancyException("Some Field in tenantDTO has problem", errorCodes);
+        }
+    }
 }
