@@ -19,3 +19,5 @@ target/
 target/*
 nohup.out
 */catalina.base_IS_UNDEFINED
+/bin/
+bin/
