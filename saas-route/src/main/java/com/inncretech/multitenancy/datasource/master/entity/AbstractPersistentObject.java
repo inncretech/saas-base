@@ -1,33 +1,19 @@
 package com.inncretech.multitenancy.datasource.master.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Version;
+import javax.persistence.PrePersist;
 
 @MappedSuperclass
-public abstract class AbstractPersistentObject extends AuditData {
+public abstract class AbstractPersistentObject extends AbstractIdentityAuditData {
 
-    @Version
-    private Integer version;
-    
     @Column
     private String name;
 
     @Column
     private String description;
-
-
-    public abstract Long getId();
-
-    public abstract void setId(Long id);
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
 
     public String getName() {
         return name;
@@ -45,11 +31,16 @@ public abstract class AbstractPersistentObject extends AuditData {
         this.description = description;
     }
 
+    @PrePersist
+    public void onPersist() {
+        this.setCreatedDate(new Date());
+        onUpdate();
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("AbstractPersistentObject [version=").append(version).append(", name=").append(name).append(", description=")
-                .append(description).append("]");
+        builder.append("AbstractPersistentObject [name=").append(name).append(", description=").append(description).append("]");
         return builder.toString();
     }
 }
