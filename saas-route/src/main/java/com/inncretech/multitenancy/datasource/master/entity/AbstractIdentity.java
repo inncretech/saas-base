@@ -3,13 +3,18 @@ package com.inncretech.multitenancy.datasource.master.entity;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.envers.Audited;
+
 import com.inncretech.multitenancy.datasource.dto.CreationAuditAware;
 import com.inncretech.multitenancy.datasource.dto.IdentityAware;
 
+@MappedSuperclass
+@Audited
 public abstract class AbstractIdentity implements IdentityAware, CreationAuditAware {
 
     @Column(name = "created_by")

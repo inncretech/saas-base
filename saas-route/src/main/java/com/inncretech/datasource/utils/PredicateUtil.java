@@ -25,6 +25,7 @@ public class PredicateUtil {
         if (filterFields == null || filterFields.size() <= 0) {
             return null;
         }
+        
         PathBuilder<EntityType> entityPath = new PathBuilder<EntityType>(clazz, entityName);
         BooleanExpression[] expressions = new BooleanExpression[filterFields.size()];
         int i = 0;

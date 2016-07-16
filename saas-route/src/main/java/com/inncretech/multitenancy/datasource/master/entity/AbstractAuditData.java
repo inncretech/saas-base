@@ -11,10 +11,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
+import org.hibernate.envers.Audited;
+
 import com.inncretech.multitenancy.datasource.dto.CreationAuditAware;
 import com.inncretech.multitenancy.datasource.dto.ModifiedAuditAware;
 
 @MappedSuperclass
+@Audited
 public abstract class AbstractAuditData implements ModifiedAuditAware, CreationAuditAware, Serializable {
 
     /**

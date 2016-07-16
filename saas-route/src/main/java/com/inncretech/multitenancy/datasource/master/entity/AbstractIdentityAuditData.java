@@ -2,9 +2,12 @@ package com.inncretech.multitenancy.datasource.master.entity;
 
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.envers.Audited;
+
 import com.inncretech.multitenancy.datasource.dto.IdentityAware;
 
 @MappedSuperclass
+@Audited
 public abstract class AbstractIdentityAuditData extends AbstractAuditData implements IdentityAware {
 
     @Override

@@ -6,7 +6,10 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 
+import org.hibernate.envers.Audited;
+
 @MappedSuperclass
+@Audited
 public abstract class AbstractPersistentObject extends AbstractIdentityAuditData {
 
     @Column
