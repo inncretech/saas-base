@@ -8,7 +8,17 @@ import com.inncretech.multitenancy.datasource.dto.IdentityAware;
 
 @MappedSuperclass
 @Audited
-public abstract class AbstractIdentityAuditData extends AbstractAuditData implements IdentityAware {
+public abstract class AbstractIdentityAuditData extends AbstractAuditData implements IdentityAware, SoftDeleteAware {
+
+    private Boolean deleted;
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
 
     @Override
     public int hashCode() {
