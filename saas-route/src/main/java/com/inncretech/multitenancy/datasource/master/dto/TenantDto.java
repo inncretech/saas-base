@@ -6,8 +6,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.inncretech.data.domain.enums.DbLeaseType;
 import com.inncretech.multitenancy.datasource.dto.TenantAware;
-import com.inncretech.multitenancy.datasource.master.dto.enums.DbLeaseType;
 
 public class TenantDto implements Serializable, TenantAware {
 

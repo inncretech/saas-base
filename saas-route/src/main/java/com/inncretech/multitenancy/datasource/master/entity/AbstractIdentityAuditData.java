@@ -5,12 +5,13 @@ import javax.persistence.MappedSuperclass;
 import org.hibernate.envers.Audited;
 
 import com.inncretech.multitenancy.datasource.dto.IdentityAware;
+import com.inncretech.multitenancy.datasource.dto.SoftDeleteAware;
 
 @MappedSuperclass
 @Audited
 public abstract class AbstractIdentityAuditData extends AbstractAuditData implements IdentityAware, SoftDeleteAware {
 
-    private Boolean deleted;
+    private Boolean deleted = Boolean.FALSE;
 
     public Boolean getDeleted() {
         return deleted;

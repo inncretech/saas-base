@@ -84,7 +84,7 @@ public class TenantServiceImpl implements TenantService {
     /// TODO: need to use ID to compare
     public DataSourceConfig findDataSourceConfigIdForTenant(TenantDto tenantDTO) throws DataSourceConfigException {
 
-        if (tenantDTO.getDbLeaseType() == com.inncretech.multitenancy.datasource.master.dto.enums.DbLeaseType.DEDICATED) {
+        if (tenantDTO.getDbLeaseType() == com.inncretech.data.domain.enums.DbLeaseType.DEDICATED) {
             // follow 1 logic
         } else {
             // follow other

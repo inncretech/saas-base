@@ -1,4 +1,4 @@
-package com.inncretech.multitenancy.datasource.master.entity;
+package com.inncretech.multitenancy.datasource.dto;
 
 public interface SoftDeleteAware {
 
