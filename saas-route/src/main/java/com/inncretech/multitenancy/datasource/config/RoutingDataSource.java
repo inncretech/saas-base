@@ -10,14 +10,14 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.jdbc.datasource.AbstractDataSource;
+import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.jdbc.datasource.lookup.DataSourceLookup;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.util.Assert;
 
 import com.inncretech.multitenancy.datasource.context.DbContextHolder;
 
-public class RoutingDataSource extends AbstractDataSource implements InitializingBean {
+public class RoutingDataSource extends AbstractRoutingDataSource implements InitializingBean {
 	private static final Logger log = LoggerFactory.getLogger(RoutingDataSource.class);
 
 	private Map<Object, Object> targetDataSources;
@@ -184,7 +184,7 @@ public class RoutingDataSource extends AbstractDataSource implements Initializin
 		this.resolvedDataSources.put(key, value);
 	}
 
-	// @Override
+	@Override
 	protected Object determineCurrentLookupKey() {
 		log.info(">>> determineCurrentLookupKey thread: {}", Thread.currentThread().getName());
 		log.info(">>> RoutingDataSource: {}", DbContextHolder.getShardId());
