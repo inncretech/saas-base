@@ -1,6 +1,7 @@
 package com.inncretech.multitenancy.datasource.master.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,6 +14,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.inncretech.multitenancy.datasource.enums.DbLeaseType;
+import com.inncretech.multitenancy.datasource.tenant.entity.convertor.FieldConvertor;
 
 @Entity
 @DynamicInsert
@@ -20,71 +22,77 @@ import com.inncretech.multitenancy.datasource.enums.DbLeaseType;
 @Table(name = "data_source_config")
 public class DataSourceConfig extends AbstractPersistentObject {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    @Column(name = "db_lease_type")
-    @Enumerated(EnumType.STRING)
-    private DbLeaseType dbLeaseType;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-    @Column(name = "db_url")
-    private String dbUrl;
+	@Column(name = "db_lease_type")
+	@Enumerated(EnumType.STRING)
+	private DbLeaseType dbLeaseType;
 
-    @Column(name = "user_name")
-    private String dbUserName;
+	@Column(name = "db_url")
+	private String dbUrl;
 
-    @Column(name = "password")
-    private String dbPassword;
+	@Column(name = "user_name")
+	private String dbUserName;
 
-    @Column(name = "db_name")
-    private String dbName;
-    
-    public Long getId() {
-        return id;
-    }
+	@Convert(converter = FieldConvertor.class)
+	@Column(name = "password")
+	private String dbPassword;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@Column(name = "db_name")
+	private String dbName;
 
-    public DbLeaseType getDbLeaseType() {
-        return dbLeaseType;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setDbLeaseType(DbLeaseType dbType) {
-        this.dbLeaseType = dbType;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getDbUrl() {
-        return dbUrl;
-    }
+	public DbLeaseType getDbLeaseType() {
+		return dbLeaseType;
+	}
 
-    public void setDbUrl(String dbUrl) {
-        this.dbUrl = dbUrl;
-    }
+	public void setDbLeaseType(DbLeaseType dbType) {
+		this.dbLeaseType = dbType;
+	}
 
-    public String getDbUserName() {
-        return dbUserName;
-    }
+	public String getDbUrl() {
+		return dbUrl;
+	}
 
-    public void setDbUserName(String dbUserName) {
-        this.dbUserName = dbUserName;
-    }
+	public void setDbUrl(String dbUrl) {
+		this.dbUrl = dbUrl;
+	}
 
-    public String getDbPassword() {
-        return dbPassword;
-    }
+	public String getDbUserName() {
+		return dbUserName;
+	}
 
-    public void setDbPassword(String dbPassword) {
-        this.dbPassword = dbPassword;
-    }
+	public void setDbUserName(String dbUserName) {
+		this.dbUserName = dbUserName;
+	}
 
-    public String getDbName() {
-        return dbName;
-    }
+	public String getDbPassword() {
+		return dbPassword;
+	}
 
-    public void setDbName(String dbName) {
-        this.dbName = dbName;
-    }
+	public void setDbPassword(String dbPassword) {
+		this.dbPassword = dbPassword;
+	}
+
+	public String getDbName() {
+		return dbName;
+	}
+
+	public void setDbName(String dbName) {
+		this.dbName = dbName;
+	}
 }

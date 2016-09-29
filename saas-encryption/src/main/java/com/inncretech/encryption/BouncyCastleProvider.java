@@ -43,14 +43,18 @@ public class BouncyCastleProvider {
 			NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException,
 			InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, IOException {
 		if (encryptedData != null) {
-			Cipher decryptCipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "BC");
-			decryptCipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(password.getBytes(), "AES"), new IvParameterSpec(
-					IV));
-			byte[] decordedValue = new BASE64Decoder().decodeBuffer(encryptedData);
-			byte[] decValue = decryptCipher.doFinal(decordedValue);
-			String decryptedValue = new String(decValue);
-			return decryptedValue;
+			try {
+				Cipher decryptCipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "BC");
+				decryptCipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(password.getBytes(), "AES"),
+						new IvParameterSpec(IV));
+				byte[] decordedValue = new BASE64Decoder().decodeBuffer(encryptedData);
+				byte[] decValue = decryptCipher.doFinal(decordedValue);
+				String decryptedValue = new String(decValue);
+				return decryptedValue;
+			} catch (Exception e) {
+				// e.printStackTrace();
+			}
 		}
-		return null;
+		return encryptedData;
 	}
 }

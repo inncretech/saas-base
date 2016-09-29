@@ -145,6 +145,11 @@
 			<artifactId>spring-aspects</artifactId>
 			<version>4.2.6.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>com.inncretech</groupId>
+			<artifactId>saas-encryption</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -5,6 +5,7 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.Security;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -12,18 +13,24 @@ import javax.crypto.NoSuchPaddingException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 
 import com.inncretech.encryption.exception.DecryptionException;
 import com.inncretech.encryption.exception.EncryptionException;
 
-public class IdentityEncryptionProvider implements GenericProvider {
-	private Logger logger = LoggerFactory.getLogger(IdentityEncryptionProvider.class);
+public class IdentityEncryptionProvider {
+	private static final Logger logger = LoggerFactory.getLogger(IdentityEncryptionProvider.class);
 
-	@Value("${encryption.masterPasswordKey}")
-	private String masterKey;
+	private static String masterKey = "ABC123DE";
 
-	public String encryptPassword(String clearTextPassword) throws EncryptionException {
+	static {
+		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+	}
+
+	public static void main(String[] args) {
+
+	}
+
+	public static String encryptPassword(String clearTextPassword) throws EncryptionException {
 		if (null == clearTextPassword)
 			return null;
 		String encryptedPassword = null;
@@ -58,7 +65,7 @@ public class IdentityEncryptionProvider implements GenericProvider {
 
 	}
 
-	public String decryptPassword(String encryptedPassword) throws DecryptionException {
+	public static String decryptPassword(String encryptedPassword) throws DecryptionException {
 		if (null == encryptedPassword)
 			return null;
 		String password = null;
@@ -93,7 +100,7 @@ public class IdentityEncryptionProvider implements GenericProvider {
 
 	}
 
-	private String generateRandomKeyData() {
+	private static String generateRandomKeyData() {
 		return masterKey.substring(0, 8) + EncryptionConstants.DEFAULT_PRIMARY_KEY_IDENTITY.substring(0, 8);
 	}
 
