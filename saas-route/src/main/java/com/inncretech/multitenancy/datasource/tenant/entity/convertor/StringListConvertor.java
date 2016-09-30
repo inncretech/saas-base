@@ -1,6 +1,6 @@
 package com.inncretech.multitenancy.datasource.tenant.entity.convertor;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
@@ -12,16 +12,15 @@ import org.springframework.util.StringUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@SuppressWarnings("rawtypes")
 @Converter(autoApply = true)
-public class StringListConvertor implements AttributeConverter<List, String> {
+public class StringListConvertor implements AttributeConverter<Set<String>, String> {
 
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(StringListConvertor.class);
 
 	@Override
-	public String convertToDatabaseColumn(List attribute) {
+	public String convertToDatabaseColumn(Set<String> attribute) {
 		String finalString = null;
 		if (attribute != null && !attribute.isEmpty()) {
 			try {
@@ -34,12 +33,12 @@ public class StringListConvertor implements AttributeConverter<List, String> {
 	}
 
 	@Override
-	public List convertToEntityAttribute(String dbData) {
-		List<String> map = null;
+	public Set<String> convertToEntityAttribute(String dbData) {
+		Set<String> map = null;
 
 		if (!StringUtils.isEmpty(dbData)) {
 			try {
-				map = OBJECT_MAPPER.readValue(dbData, new TypeReference<List<String>>() {
+				map = OBJECT_MAPPER.readValue(dbData, new TypeReference<Set<String>>() {
 				});
 			} catch (Exception e) {
 				LOGGER.error("Error converting string to map ", e);
