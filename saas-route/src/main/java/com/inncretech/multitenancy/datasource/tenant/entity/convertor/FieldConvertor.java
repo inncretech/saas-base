@@ -9,7 +9,7 @@ import org.springframework.util.StringUtils;
 
 import com.inncretech.encryption.IdentityEncryptionProvider;
 
-@Converter(autoApply = true)
+@Converter
 public class FieldConvertor implements AttributeConverter<String, String> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(StringListConvertor.class);

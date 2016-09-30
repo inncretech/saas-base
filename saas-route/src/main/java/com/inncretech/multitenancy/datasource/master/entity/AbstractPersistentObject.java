@@ -7,43 +7,45 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 @MappedSuperclass
 @Audited
 public abstract class AbstractPersistentObject extends AbstractIdentityAuditData {
 
-    @Column
-    private String name;
+	@Column
+	private String name;
 
-    @Column
-    private String description;
+	@Column
+	private String description;
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    @PrePersist
-    public void onPersist() {
-        this.setCreatedDate(new Date());
-        onUpdate();
-    }
+	@PrePersist
+	public void onPersist() {
+		this.setCreatedDate(new Date());
+		onUpdate();
+	}
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("AbstractPersistentObject [name=").append(name).append(", description=").append(description).append("]");
-        return builder.toString();
-    }
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("AbstractPersistentObject [name=").append(name).append(", description=").append(description)
+				.append("]");
+		return builder.toString();
+	}
 }

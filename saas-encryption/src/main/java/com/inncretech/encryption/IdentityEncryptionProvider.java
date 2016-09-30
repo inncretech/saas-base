@@ -26,10 +26,6 @@ public class IdentityEncryptionProvider {
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 	}
 
-	public static void main(String[] args) {
-
-	}
-
 	public static String encryptPassword(String clearTextPassword) throws EncryptionException {
 		if (null == clearTextPassword)
 			return null;

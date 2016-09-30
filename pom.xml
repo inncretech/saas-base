@@ -27,6 +27,7 @@
 		<module>saas-common</module>
 		<module>saas-identity-dao</module>
 		<module>saas-identity</module>
+		<module>saas-encryption</module>
 	</modules>
 
 </project>
