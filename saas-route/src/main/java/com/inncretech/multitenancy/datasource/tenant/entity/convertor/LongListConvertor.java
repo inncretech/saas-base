@@ -1,5 +1,7 @@
 package com.inncretech.multitenancy.datasource.tenant.entity.convertor;
 
+import java.util.Set;
+
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
@@ -7,20 +9,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
-import com.inncretech.encryption.IdentityEncryptionProvider;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Converter
-public class FieldConvertor implements AttributeConverter<String, String> {
+public class LongListConvertor implements AttributeConverter<Set<Long>, String> {
+
+	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LongListConvertor.class);
 
 	@Override
-	public String convertToDatabaseColumn(String attribute) {
+	public String convertToDatabaseColumn(Set<Long> attribute) {
 		String finalString = null;
 		if (attribute != null && !attribute.isEmpty()) {
 			try {
-				finalString = IdentityEncryptionProvider.encryptPassword(attribute);
-
+				finalString = OBJECT_MAPPER.writeValueAsString(attribute);
 			} catch (Exception e) {
 				LOGGER.error("Error converting map to string", e);
 			}
@@ -29,12 +33,13 @@ public class FieldConvertor implements AttributeConverter<String, String> {
 	}
 
 	@Override
-	public String convertToEntityAttribute(String encryptedPassword) {
-		String map = null;
+	public Set<Long> convertToEntityAttribute(String dbData) {
+		Set<Long> map = null;
 
-		if (!StringUtils.isEmpty(encryptedPassword)) {
+		if (!StringUtils.isEmpty(dbData)) {
 			try {
-				map = IdentityEncryptionProvider.decryptPassword(encryptedPassword);
+				map = OBJECT_MAPPER.readValue(dbData, new TypeReference<Set<Long>>() {
+				});
 			} catch (Exception e) {
 				LOGGER.error("Error converting string to map ", e);
 			}

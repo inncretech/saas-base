@@ -12,7 +12,7 @@ import org.springframework.util.StringUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Converter(autoApply = true)
+@Converter
 public class StringListConvertor implements AttributeConverter<Set<String>, String> {
 
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
