@@ -95,4 +95,11 @@ public class DataSourceConfig extends AbstractPersistentObject {
 	public void setDbName(String dbName) {
 		this.dbName = dbName;
 	}
+	
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("DataSourceConfig [id=").append(id).append("dbUrl").append(dbUrl).append("]");
+        return builder.toString();
+    }
 }
