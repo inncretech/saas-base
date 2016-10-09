@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
@@ -18,6 +19,10 @@ public abstract class AbstractPersistentObject extends AbstractIdentityAuditData
 
 	@Column
 	private String description;
+
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	@Column(name = "active")
+	private Boolean active;
 
 	public String getName() {
 		return name;
@@ -39,6 +44,14 @@ public abstract class AbstractPersistentObject extends AbstractIdentityAuditData
 	public void onPersist() {
 		this.setCreatedDate(new Date());
 		onUpdate();
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 	@Override

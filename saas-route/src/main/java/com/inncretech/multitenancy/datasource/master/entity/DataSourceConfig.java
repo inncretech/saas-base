@@ -14,7 +14,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.inncretech.multitenancy.datasource.enums.DbLeaseType;
-import com.inncretech.multitenancy.datasource.tenant.entity.convertor.FieldConvertor;
+import com.inncretech.multitenancy.datasource.tenant.entity.convertor.PasswordConvertor;
 
 @Entity
 @DynamicInsert
@@ -41,7 +41,7 @@ public class DataSourceConfig extends AbstractPersistentObject {
 	@Column(name = "user_name")
 	private String dbUserName;
 
-	@Convert(converter = FieldConvertor.class)
+	@Convert(converter = PasswordConvertor.class)
 	@Column(name = "password")
 	private String dbPassword;
 

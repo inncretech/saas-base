@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 import com.inncretech.encryption.IdentityEncryptionProvider;
 
 @Converter
-public class FieldConvertor implements AttributeConverter<String, String> {
+public class PasswordConvertor implements AttributeConverter<String, String> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LongListConvertor.class);
 
