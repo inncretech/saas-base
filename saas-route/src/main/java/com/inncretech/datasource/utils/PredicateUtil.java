@@ -22,55 +22,98 @@ public class PredicateUtil {
     }
 
     public static <EntityType> BooleanExpression getPredicate(Map<String, Class<?>> fieldToTypeMap, Class<EntityType> clazz, String entityName,
-            List<FieldFilter> filterFields) {
+            List<FieldFilter> filterFields, boolean exactMatchForString) {
         Assert.notNull(clazz);
         Assert.notNull(entityName);
         if (filterFields == null || filterFields.size() <= 0) {
             return null;
         }
-        PathBuilder<EntityType> entityPath = new PathBuilder<EntityType>(clazz, entityName);
-        BooleanExpression[] expressions = new BooleanExpression[filterFields.size()];
-        int i = 0;
-        for (FieldFilter filterField : filterFields) {
-            BooleanExpression booleanExpression = getPredicate(fieldToTypeMap, clazz, entityPath, filterField);
-            expressions[i++] = booleanExpression;
-        }
+        BooleanExpression[] expressions = getExpressions(fieldToTypeMap, clazz, entityName, filterFields, exactMatchForString);
         return BooleanExpression.allOf(expressions);
     }
 
-    public static <EntityType> BooleanExpression getPredicate(Map<String, Class<?>> fieldToTypeMap, Class<EntityType> clazz,
+    public static <EntityType> BooleanExpression getPredicateForSearch(Map<String, Class<?>> fieldToTypeMap, Class<EntityType> clazz,
             PathBuilder<EntityType> entityPath, FieldFilter filterField) {
         if (filterField.getRange() != null) {
             return getRangeQuery(entityPath, filterField, Long.class);
         }
 
         try {
-            Long parseNumber = NumberUtils.parseNumber(filterField.getValue(), Long.class);
-            NumberPath<Long> path = entityPath.getNumber(filterField.getField(), Long.class);
-            if (filterField.isNegated()) {
-                return path.ne(parseNumber);
-            } else {
-                return path.eq(parseNumber);
-            }
+            return getNumberQuery(entityPath, filterField);
         } catch (IllegalArgumentException e) {
         }
+
         String fieldName = filterField.getField();
         Class<?> fieldClassType = fieldToTypeMap.get(fieldName);
 
         if (fieldClassType == BooleanPath.class) {
-            BooleanPath path = entityPath.getBoolean(filterField.getField());
-            if (filterField.isNegated()) {
-                return path.ne(Boolean.valueOf(filterField.getValue().toString()));
-            } else {
-                return path.eq(Boolean.valueOf(filterField.getValue().toString()));
-            }
+            return getBooleanQuery(entityPath, filterField);
         }
 
         StringPath path = entityPath.getString(filterField.getField());
         if (filterField.isNegated()) {
             return path.notLike(filterField.getValue().toString());
         } else {
-            return path.containsIgnoreCase(filterField.getValue().toString());
+            return path.likeIgnoreCase("%" + filterField.getValue().toString().toLowerCase() + "%");
+        }
+    }
+
+    private static <EntityType> BooleanExpression getBooleanQuery(PathBuilder<EntityType> entityPath, FieldFilter filterField) {
+        BooleanPath path = entityPath.getBoolean(filterField.getField());
+        if (filterField.isNegated()) {
+            return path.ne(Boolean.valueOf(filterField.getValue().toString()));
+        } else {
+            return path.eq(Boolean.valueOf(filterField.getValue().toString()));
+        }
+
+    }
+
+    private static <EntityType> BooleanExpression getNumberQuery(PathBuilder<EntityType> entityPath, FieldFilter filterField) {
+        Long parseNumber = NumberUtils.parseNumber(filterField.getValue(), Long.class);
+        NumberPath<Long> path = entityPath.getNumber(filterField.getField(), Long.class);
+        if (filterField.isNegated()) {
+            return path.ne(parseNumber);
+        } else {
+            return path.eq(parseNumber);
+        }
+    }
+
+    private static <EntityType> BooleanExpression[] getExpressions(Map<String, Class<?>> fieldToTypeMap, Class<EntityType> clazz, String entityName,
+            List<FieldFilter> filterFields, boolean exactMatchForString) {
+        PathBuilder<EntityType> entityPath = new PathBuilder<EntityType>(clazz, entityName);
+        BooleanExpression[] expressions = new BooleanExpression[filterFields.size()];
+        int i = 0;
+        for (FieldFilter filterField : filterFields) {
+            BooleanExpression booleanExpression = null;
+            if (exactMatchForString) {
+                booleanExpression = getPredicate(fieldToTypeMap, clazz, entityPath, filterField);
+            } else {
+                booleanExpression = getPredicateForSearch(fieldToTypeMap, clazz, entityPath, filterField);
+            }
+            expressions[i++] = booleanExpression;
+        }
+        return expressions;
+    }
+
+    public static <EntityType> BooleanExpression getPredicate(Map<String, Class<?>> fieldToTypeMap, Class<EntityType> clazz,
+            PathBuilder<EntityType> entityPath, FieldFilter filterField) {
+        try {
+            return getNumberQuery(entityPath, filterField);
+        } catch (IllegalArgumentException e) {
+        }
+
+        String fieldName = filterField.getField();
+        Class<?> fieldClassType = fieldToTypeMap.get(fieldName);
+
+        if (fieldClassType == BooleanPath.class) {
+            return getBooleanQuery(entityPath, filterField);
+        }
+
+        StringPath path = entityPath.getString(filterField.getField());
+        if (filterField.isNegated()) {
+            return path.ne(filterField.getValue().toString());
+        } else {
+            return path.eq(filterField.getValue().toString());
         }
     }
 
