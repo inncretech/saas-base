@@ -3,6 +3,7 @@ package com.inncretech.multitenancy.service.impl;
 import java.beans.PropertyVetoException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,35 +83,15 @@ public class TenantServiceImpl implements TenantService {
 		return tenantDTO;
 	}
 
-	// / TODO: need to use ID to compare
 	public DataSourceConfig findDataSourceConfigIdForTenant(TenantDto tenantDTO) throws DataSourceConfigException {
-
-		if (tenantDTO.getDbLeaseType() == com.inncretech.data.domain.enums.DbLeaseType.DEDICATED) {
-			// follow 1 logic
-		} else {
-			// follow other
-		}
-
-		List<Tenant> tenants = tenantRepository.findAll();
-		Set<DataSourceConfig> tenantDSCSet = new HashSet<DataSourceConfig>();
-		if (tenants != null && tenants.size() > 0) {
-			for (Tenant tenant : tenants) {
-				tenantDSCSet.add(tenant.getTenantDataSourceConfig());
-			}
-		} else {
-			System.out.println("No existing tenants");
-		}
 		List<DataSourceConfig> dataSourceConfigs = dataSourceConfigRepository.findAll();
 		if (dataSourceConfigs != null && !dataSourceConfigs.isEmpty()) {
-			for (DataSourceConfig dataSourceConfig : dataSourceConfigs) {
-				// if (!(tenantDSCSet.contains(dataSourceConfig))) {
-				if (dataSourceConfig.getId() == 3 || dataSourceConfig.getId() == 1) {
-					return dataSourceConfig;
-				}
-			}
+			Random random = new Random();
+			int dataSourceConfigId = random.nextInt(dataSourceConfigs.size());			
+			return dataSourceConfigs.get(dataSourceConfigId);
+
 		}
 		throw new DataSourceConfigException("No valid DataSourceConfig Found");
-
 	}
 
 	@Transactional

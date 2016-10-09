@@ -64,4 +64,5 @@ public class TenantDto implements Serializable, TenantAware {
     public void setDomain(String domain) {
         this.domain = domain;
     }
+
 }
