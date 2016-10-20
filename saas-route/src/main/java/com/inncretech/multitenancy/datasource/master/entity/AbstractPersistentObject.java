@@ -12,17 +12,13 @@ import org.hibernate.envers.NotAudited;
 
 @MappedSuperclass
 @Audited
-public abstract class AbstractPersistentObject extends AbstractIdentityAuditData {
+public abstract class AbstractPersistentObject extends AbstractPersistentObjectLite {
 
 	@Column
 	private String name;
 
 	@Column
 	private String description;
-
-	@Type(type = "org.hibernate.type.NumericBooleanType")
-	@Column(name = "active")
-	private Boolean active;
 
 	public String getName() {
 		return name;
@@ -44,14 +40,6 @@ public abstract class AbstractPersistentObject extends AbstractIdentityAuditData
 	public void onPersist() {
 		this.setCreatedDate(new Date());
 		onUpdate();
-	}
-
-	public Boolean getActive() {
-		return active;
-	}
-
-	public void setActive(Boolean active) {
-		this.active = active;
 	}
 
 	@Override

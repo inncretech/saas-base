@@ -55,7 +55,7 @@ public class MasterSourceConfig {
         HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
         jpaVendorAdapter.setGenerateDdl(true);
         jpaVendorAdapter.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
-        jpaVendorAdapter.setShowSql(true);
+        jpaVendorAdapter.setShowSql(false);
         localContainerEntityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
         localContainerEntityManagerFactoryBean.setPersistenceUnitName("masterPersistentUnit");
         localContainerEntityManagerFactoryBean.setPackagesToScan("com.inncretech.multitenancy.datasource.master.entity");
